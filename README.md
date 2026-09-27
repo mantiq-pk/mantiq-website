@@ -2,6 +2,8 @@
 
 Three independent redesigns of the supplied Mantiq website, presented together on a comparison page. The original wording, product information, pricing, services, testimonials, FAQs, and contact behavior are preserved.
 
+**Live site:** [mantiq-pk.github.io/mantiq-website](https://mantiq-pk.github.io/mantiq-website/)
+
 ## Preview
 
 From this directory, run:
