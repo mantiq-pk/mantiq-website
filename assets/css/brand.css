@@ -1,0 +1,41 @@
+/* Transparent vector paths traced from the supplied artwork.
+   Each design controls both logos with --brand-color. */
+.brand-symbol {
+  display: inline-block;
+  width: 50px;
+  height: 42px;
+  flex: 0 0 50px;
+  background: var(--brand-color, #3159eb);
+  -webkit-mask: url('../brand/mantiq-symbol.svg') center / contain no-repeat;
+  mask: url('../brand/mantiq-symbol.svg') center / contain no-repeat;
+  vertical-align: middle;
+}
+.brand-lockup {
+  display: block;
+  width: 168px;
+  height: 103px;
+  background: var(--brand-color, #3159eb);
+  -webkit-mask: url('../brand/al-mantiq-lockup.svg') center / contain no-repeat;
+  mask: url('../brand/al-mantiq-lockup.svg') center / contain no-repeat;
+}
+.logo, .brand { text-decoration: none; }
+.site-footer {
+  width: min(1184px, calc(100% - 48px));
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-block: 28px;
+  text-align: right;
+}
+.site-footer p { margin: 0; }
+.footer-brand { display: inline-block; flex-shrink: 0; }
+.gallery-footer { align-items: center; }
+@media (max-width: 600px) {
+  .brand-symbol { width: 42px; height: 36px; flex-basis: 42px; }
+  .brand-lockup { width: 140px; height: 86px; }
+  .site-footer { gap: 16px; font-size: 11px; }
+  .site-footer p { max-width: 150px; }
+  .gallery-footer { align-items: flex-start; }
+}
