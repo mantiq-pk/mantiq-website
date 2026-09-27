@@ -8,6 +8,8 @@ The current requirement is to preserve the supplied website's content and offer 
 2. **Modern** — `designs/modern/`: white and cobalt blue, a centered headline, feature ribbon, asymmetric content, and a split benefits layout.
 3. **Graphic** — `designs/graphic/`: dark and lime, oversized typography, geometric artwork, and graphic content rows.
 
+Editorial and Modern also have distinct dark palettes and a shared accessible theme toggle. Dark is the initial theme; a visitor's light or dark selection is stored locally and carries between those two designs.
+
 These are complete separate webpages, with layout differences as well as different colors. `index.html` provides the comparison interface, direct links, and live previews. Review navigation and design labels are separate from the original website content.
 
 ## Structure and content preservation

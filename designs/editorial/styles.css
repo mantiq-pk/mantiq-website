@@ -26,3 +26,104 @@ p.lead { font-size: 16px; line-height: 1.85; }
 }
 
 :root { --brand-color: #203d32; }
+
+/* Dark-first palette: warm ink, forest green and muted brass. */
+html[data-theme='dark'] {
+  --bg: #101510;
+  --panel: #171e18;
+  --panel2: #1d271f;
+  --line: #354239;
+  --blue: #a5c4aa;
+  --blue-soft: #223128;
+  --text: #edf1e9;
+  --muted: #9da89e;
+  --good: #8fbb96;
+  --brand-color: #dce8d9;
+}
+
+html[data-theme='dark'] body { background: var(--bg); color: var(--text); }
+html[data-theme='dark'] .review-nav { background: #0b0f0c; border-color: #28332b; color: #bec8bd; }
+html[data-theme='dark'] .review-nav a:first-child { border-color: #344138; }
+html[data-theme='dark'] nav { background: var(--bg); }
+html[data-theme='dark'] .navlinks a:last-child { border-color: #526057; color: var(--text); }
+html[data-theme='dark'] .navlinks a.on { border-color: #d08b5b; }
+html[data-theme='dark'] .eyebrow { color: #c4ab82; }
+html[data-theme='dark'] .eyebrow:before { background: #d28a58; }
+html[data-theme='dark'] .cta { background: #dce7da; border-color: #dce7da; color: #162019; }
+html[data-theme='dark'] .cta:hover { background: #f1f5ef; }
+html[data-theme='dark'] .cta.ghost { background: transparent; border-color: #536158; color: var(--text); }
+html[data-theme='dark'] .cta.ghost:hover { background: #1d281f; }
+html[data-theme='dark'] .studio-art:before {
+  background-color: #1b251d;
+  background-image: radial-gradient(#81927b38 .7px, transparent .7px);
+  box-shadow: inset 0 0 0 1px #2d3b31;
+}
+html[data-theme='dark'] .studio-art svg { filter: brightness(.82) saturate(.86); }
+html[data-theme='dark'] .focusrow span { color: #abb6aa; }
+html[data-theme='dark'] .focusrow span:before { border-color: #8da18f; }
+html[data-theme='dark'] .card { border-color: #465449; }
+html[data-theme='dark'] .home-route #app>section:nth-child(3) { background: #18221b; color: var(--text); }
+html[data-theme='dark'] .home-route #app>section:nth-child(3) .eyebrow { color: #d2bd99; }
+html[data-theme='dark'] .home-route #app>section:nth-child(3) .card { border-color: #4a5a4e; }
+html[data-theme='dark'] .home-route #app>section:nth-child(3) .card p { color: #aebcaf; }
+html[data-theme='dark'] .tcard { border-color: #3d4a40; }
+html[data-theme='dark'] .tcard .who { color: #9ca99d; }
+html[data-theme='dark'] .plist { border-color: #455247; }
+html[data-theme='dark'] .prow { border-color: #3d4b40; }
+html[data-theme='dark'] .prow .ptag { color: #d0aa73; }
+html[data-theme='dark'] .starterbadge { background: #233127; border-color: #526653; color: #b9d2b9; }
+html[data-theme='dark'] .otherplans,
+html[data-theme='dark'] .plan .pnote { color: #9eaa9f; }
+html[data-theme='dark'] .plan { background: #171e18; border-color: #39483c; }
+html[data-theme='dark'] .plan.starter { background: #202c22; border-color: #748b75; }
+html[data-theme='dark'] .plan ul li { border-color: #344137; }
+html[data-theme='dark'] .featgroup { border-color: #465549; }
+html[data-theme='dark'] .featgroup ul li:before { color: #d4a06c; }
+html[data-theme='dark'] .comingsoon { background: #19221b; color: #a8b4a9; }
+html[data-theme='dark'] .servicelist,
+html[data-theme='dark'] .servicerow { border-color: #3a473d; }
+html[data-theme='dark'] .chan { border-color: #354239; }
+html[data-theme='dark'] .socialrow span { background: #171e18; border-color: #354239; color: #aeb9ae; }
+html[data-theme='dark'] .faq { border-color: #354239; }
+html[data-theme='dark'] .faqq { background: #19221b; color: var(--text); }
+html[data-theme='dark'] #cform { background: #18221b; border-color: #35453a; }
+html[data-theme='dark'] input,
+html[data-theme='dark'] textarea,
+html[data-theme='dark'] select { background: #111713; border-color: #3a493e; color: #e7ece5; }
+html[data-theme='dark'] input::placeholder,
+html[data-theme='dark'] textarea::placeholder { color: #7f8d81; }
+html[data-theme='dark'] button.submit { background: #a9c8ad; color: #132018; }
+html[data-theme='dark'] button.submit:hover { background: #c4dbc7; }
+html[data-theme='dark'] footer { background: #0d120e; border-color: #2e3931; color: #929f94; }
+
+@media (max-width: 760px) {
+  nav .wrap {
+    height: auto;
+    min-height: 112px;
+    padding-block: 8px;
+    flex-wrap: wrap;
+    align-content: center;
+    gap: 0;
+  }
+
+  .logo {
+    width: 100%;
+    min-height: 43px;
+  }
+
+  .navlinks {
+    width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .navlinks a {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media (max-width: 420px) {
+  .navlinks { gap: 7px; }
+}

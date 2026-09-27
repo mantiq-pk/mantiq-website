@@ -18,6 +18,8 @@ Open [the comparison page](http://127.0.0.1:4173/), then select a design:
 - [Design 2 — Modern](http://127.0.0.1:4173/designs/modern/): white and cobalt blue, centered hero, and asymmetric feature layouts.
 - [Design 3 — Graphic](http://127.0.0.1:4173/designs/graphic/): dark and lime, oversized type, and geometric artwork.
 
+Editorial and Modern open in dark mode by default and include a navigation toggle that remembers the visitor's preference across both designs.
+
 There are no dependencies to install and no build step. Web fonts use Google Fonts with local fallbacks.
 
 ## Files
@@ -28,8 +30,11 @@ assets/
   css/base.css                   Original shared website styles
   css/brand.css                  Shared logo presentation
   css/gallery.css                Comparison-page styles
+  css/theme.css                  Shared light/dark toggle presentation
   js/content.js                  Original content and routing script
   js/gallery.js                  Comparison-page behavior
+  js/theme-init.js               Early theme selection to prevent flashing
+  js/theme.js                    Theme toggle and saved preference behavior
   brand/mantiq-symbol.svg        Transparent symbol used by the website
   brand/al-mantiq-lockup.svg      Transparent full logo used by the website
   brand/mantiq-symbol.png        Preserved supplied blue-symbol PNG

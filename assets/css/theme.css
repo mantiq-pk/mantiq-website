@@ -1,0 +1,100 @@
+html {
+  color-scheme: dark;
+}
+
+html[data-theme='light'] {
+  color-scheme: light;
+}
+
+.theme-toggle {
+  appearance: none;
+  min-height: 38px;
+  padding: 6px 11px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font: 600 11px/1 'DM Sans', sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--text) 7%, transparent);
+}
+
+.theme-toggle:hover {
+  border-color: color-mix(in srgb, var(--blue) 55%, var(--line));
+  background: var(--panel2);
+}
+
+.theme-toggle__icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: inline-grid;
+  place-items: center;
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-size: 13px;
+  line-height: 1;
+}
+
+.theme-ready body,
+.theme-ready nav,
+.theme-ready .review-nav,
+.theme-ready .review-bar,
+.theme-ready .card,
+.theme-ready .tcard,
+.theme-ready .prow,
+.theme-ready .plan,
+.theme-ready .faq,
+.theme-ready .faqq,
+.theme-ready input,
+.theme-ready textarea,
+.theme-ready select,
+.theme-ready footer,
+.theme-ready .theme-toggle {
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+
+@media (max-width: 760px) {
+  .theme-toggle {
+    width: 38px;
+    min-width: 38px;
+    padding: 0;
+  }
+
+  .theme-toggle__text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-ready body,
+  .theme-ready nav,
+  .theme-ready .review-nav,
+  .theme-ready .review-bar,
+  .theme-ready .card,
+  .theme-ready .tcard,
+  .theme-ready .prow,
+  .theme-ready .plan,
+  .theme-ready .faq,
+  .theme-ready .faqq,
+  .theme-ready input,
+  .theme-ready textarea,
+  .theme-ready select,
+  .theme-ready footer,
+  .theme-ready .theme-toggle {
+    transition: none;
+  }
+}
