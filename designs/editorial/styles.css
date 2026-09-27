@@ -127,3 +127,9 @@ html[data-theme='dark'] footer { background: #0d120e; border-color: #2e3931; col
 @media (max-width: 420px) {
   .navlinks { gap: 7px; }
 }
+
+@media(max-width:760px){
+ .review-nav{justify-content:flex-start;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:none;white-space:nowrap;-webkit-overflow-scrolling:touch}
+ .review-nav::-webkit-scrollbar{display:none}
+ .review-nav a{flex:none;scroll-snap-align:center}
+}

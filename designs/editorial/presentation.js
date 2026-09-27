@@ -6,6 +6,7 @@ function applyStudioPresentation(){
  const home=!h||!['products','services','contact'].includes(h)&&!h.startsWith('product/');
  document.body.classList.toggle('home-route',home);
  document.title += ' | Design 1 — Editorial';
+ if(matchMedia('(max-width:760px)').matches)document.querySelector('[aria-current="page"]')?.scrollIntoView({block:'nearest',inline:'center'});
  if(home){const wrap=document.querySelector('#app>section:first-child .wrap');if(wrap&&!wrap.querySelector('.studio-art')){const art=document.createElement('div');art.className='studio-art';art.setAttribute('aria-hidden','true');art.innerHTML=studioArtwork;wrap.insertBefore(art,wrap.querySelector('.focusrow'));}}
  document.querySelectorAll('a[onclick]').forEach(a=>{const match=a.getAttribute('onclick').match(/go\('([^']*)'\)/);if(match)a.setAttribute('href',match[1]?'#/'+match[1]:'#');});
  document.querySelectorAll('.faqq').forEach(q=>{q.setAttribute('role','button');q.tabIndex=0;q.setAttribute('aria-controls','faqa'+q.dataset.i);q.setAttribute('aria-expanded','false');q.addEventListener('click',()=>q.setAttribute('aria-expanded',String(document.getElementById('faqa'+q.dataset.i).classList.contains('open'))));q.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();q.click();}});});

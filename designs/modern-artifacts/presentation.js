@@ -4,6 +4,7 @@ function enhancePresentation(){
  document.title=document.title.replace(/ \| Design 4 — Systems$/,'')+' | Design 4 — Systems';
  const routeName=location.hash.replace(/^#\/?/,'');
  document.body.dataset.page=routeName.startsWith('product/')?'product':(['products','services','contact'].includes(routeName)?routeName:'home');
+ if(matchMedia('(max-width:760px)').matches)document.querySelector('[aria-current="page"]')?.scrollIntoView({block:'nearest',inline:'center'});
  if(document.body.dataset.page==='home') injectSystemArtifacts();
  document.querySelectorAll('a[onclick]').forEach(a=>{const match=a.getAttribute('onclick').match(/go\('([^']*)'\)/);if(match)a.setAttribute('href',match[1]?'#/'+match[1]:'#');});
  const logo=document.querySelector('.logo');logo.setAttribute('role','link');logo.tabIndex=0;logo.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();go('');}};

@@ -117,3 +117,11 @@ html[data-theme='dark'] select { background: #0b1221; border-color: #2d3c59; col
 html[data-theme='dark'] input::placeholder,
 html[data-theme='dark'] textarea::placeholder { color: #71809b; }
 html[data-theme='dark'] footer { color: #8f9db7; }
+
+@media(max-width:760px){
+ .review-bar .wrap{justify-content:flex-start;gap:18px;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:none;white-space:nowrap;-webkit-overflow-scrolling:touch}
+ .review-bar .wrap::-webkit-scrollbar{display:none}
+ .review-bar .wrap>a,.review-links{flex:none}
+ .review-links{gap:18px}
+ .review-links a{white-space:nowrap;scroll-snap-align:center}
+}

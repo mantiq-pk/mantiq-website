@@ -25,3 +25,11 @@ body[data-page=home] .focusrow{margin-top:25px}
 @media(max-width:380px){body[data-page=home] #app>section:first-child h1{font-size:44px;letter-spacing:-2.2px}.hero-message .cta{font-size:11px;padding-inline:13px}.concept-switcher .wrap{padding-inline:10px}.concept-switcher .choices{gap:7px}.concept-switcher{font-size:8px}}
 
 :root { --brand-color: #dcf88a; }
+
+@media(max-width:760px){
+ .concept-switcher .wrap{justify-content:flex-start;gap:18px;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:none;white-space:nowrap;-webkit-overflow-scrolling:touch}
+ .concept-switcher .wrap::-webkit-scrollbar{display:none}
+ .concept-switcher .wrap>a,.concept-switcher .choices{flex:none}
+ .concept-switcher .choices{gap:18px}
+ .concept-switcher a{white-space:nowrap;scroll-snap-align:center}
+}

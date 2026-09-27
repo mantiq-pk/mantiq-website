@@ -21,6 +21,7 @@ const hash=location.hash.replace(/^#\/?/,'');
 const home=!hash||!['products','services','contact'].includes(hash)&&!hash.startsWith('product/');
 document.body.dataset.page=home?'home':hash.startsWith('product/')?'product':hash;
 document.title=document.title.replace(/ \| Design 3 — Graphic$/,'')+' | Design 3 — Graphic';
+if(matchMedia('(max-width:760px)').matches)document.querySelector('[aria-current="page"]')?.scrollIntoView({block:'nearest',inline:'center'});
 if(home){const hero=document.querySelector('#app>section:first-child>.wrap');if(hero&&!hero.querySelector('.builder-art')){const illustration=document.createElement('div');illustration.className='builder-art';illustration.setAttribute('aria-hidden','true');illustration.innerHTML=art;const summary=document.createElement('div');summary.className='hero-summary';const message=document.createElement('div');message.className='hero-message';message.append(hero.querySelector('.lead'),' ');hero.querySelectorAll(':scope > .cta').forEach(link=>message.append(link,' '));summary.append(message,illustration);hero.insertBefore(summary,hero.querySelector('.focusrow'));}}
 }
 new MutationObserver(enhance).observe(document.getElementById('app'),{childList:true});
