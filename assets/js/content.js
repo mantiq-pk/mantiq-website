@@ -1,285 +1,162 @@
+const SERVICES = [
+  {name:'Custom ERP Development', description:'Run your business on software built around the way you actually work — not the other way around.', includes:['Operations','Finance','HR','Inventory','Workflows','Reporting'], cta:'Build My ERP'},
+  {name:'Software Development', description:'From an idea to a production-ready product — web platforms, SaaS products, enterprise applications and APIs.', includes:['Web Platforms','SaaS','Enterprise Apps','APIs'], cta:'Build My Product'},
+  {name:'Mobile App Development', description:'Mobile experiences people actually want to use — built for performance, usability and scale.', includes:['iOS','Android','Cross-Platform'], cta:'Build My App'},
+  {name:'Salesforce Development', description:'Make Salesforce work harder for your business, with development and integrations tailored to your workflows.', includes:['Custom Development','Integrations','Automation','Customization'], cta:'Optimize My Salesforce'},
+  {name:'AR / VR / XR Development', description:'Turn digital experiences into immersive ones — for training, education, real estate and enterprise use cases.', includes:['Training','Simulation','Visualization','Enterprise XR'], cta:'Build My XR Experience'},
+  {name:'QA & Testing', description:'Ship with confidence. Manual and automated testing that catches what matters before your users do.', includes:['Functional','API','Performance','Regression'], cta:'Request a QA Audit'},
+  {name:'Project Management', description:'Keep products moving from idea to launch, with dedicated leadership and agile delivery.', includes:['Sprint Planning','Stakeholder Coordination','Risk Management'], cta:'Request Delivery Support'},
+];
 
 const PRODUCTS = [
-{slug:'ilma-cms', name:'ILMA CMS', tag:'Schools & Colleges',
- blurb:'A complete campus management system covering admissions, attendance, academics, fees, LMS and AI-assisted grading — built for institutes with multiple branches.',
- plans:[
-  {name:'Starter', price:'Low fixed fee / mo', note:'Up to 200 students, 1 branch', items:['Student & staff records','Attendance tracking','Communication tools','Basic fee tracking']},
-  {name:'Growth', price:'Base + per-student', note:'201–1,000 students', items:['Everything in Starter','LMS','Exams & grading','AI chatbot & auto-grading add-on']},
-  {name:'Institute Pro', price:'Discounted per-student', note:'1,001–5,000 / multi-branch', items:['Everything in Growth','Multi-branch console','Full AI suite bundled','Transport & hostel modules']},
-  {name:'Enterprise', price:'Custom', note:'5,000+ students / university', items:['Full platform','Dedicated infrastructure','Custom integrations','SLA-backed support']},
- ],
- features:[
-  {h:'Academics & Records', items:['Student & staff profiles','Admissions & enrollment','Classes & sections','Subjects, timetable, exams & results']},
-  {h:'Attendance & Communication', items:['Manual / QR / RFID / biometric attendance','Announcements & messaging','Parent, teacher & student notifications']},
-  {h:'Finance', items:['Fee structure, invoices & payments','Discounts & scholarships','Refunds','Financial reports']},
-  {h:'Learning (LMS)', items:['Course materials & past papers','Assignments & MCQ auto-grading','Progress tracking']},
-  {h:'AI Copilots (per role)', items:['AI Study Buddy for students','AI Teacher Copilot for lesson plans & quizzes','AI Assessment Assistant (human-reviewed)','AI Admin & Finance Copilots']},
-  {h:'Multi-Branch', items:['Branch switcher & cross-branch dashboards','Institute-wide reports','Plans, billing & feature flags']},
- ]},
-{slug:'ilma-islamic', name:'ILMA — Islamic Institutions Edition', tag:'Madrasas · Masajid · Quran Academies',
- blurb:'The ILMA platform adapted for madrasas, Quran academies, Islamic schools and masajid — where donations, zakat and sponsorships replace standard fee collection.',
- plans:[
-  {name:'Starter', price:'Free', note:'Masjid essentials', items:['Donor records','Donation entry & receipts','Prayer timings & announcements']},
-  {name:'Growth', price:'Paid modules', note:'Active donation programs', items:['Payment gateway','Recurring donations & pledges','Donor portal','Advanced reports']},
-  {name:'Institution', price:'Tiered by size', note:'Madrasas, Quran academies', items:['Everything in Growth','Quran / Hifz class management','Student sponsorship tracking','AI copilot (limited scope)']},
-  {name:'Enterprise', price:'Custom', note:'Multi-branch Waqf / NGO networks', items:['Full ILMA platform','Multi-branch consolidation','Custom terminology & workflows','Dedicated support']},
- ],
- features:[
-  {h:'Money', items:['Donations with donor, amount & fund type','Fund types: Zakat, Sadaqah, general, construction','Recurring donors & pledges with reminders','Campaigns with progress bars & public page','Fund-wise balances kept separate']},
-  {h:'Community & People', items:['Member & donor directory by household','Committee roles & permissions','Volunteer management','Donor portal with history']},
-  {h:'Masjid Operations', items:['Prayer & Jummah timings + announcements','Event management (Ramadan, Taraweeh, Eid, Ijtema)','Janazah & urgent announcements','Imam & staff records incl. salary','Hall booking, inventory & assets']},
-  {h:'Student Sponsorship', items:['Sponsor ↔ student ↔ commitment tracking','Remaining balance & sponsorship history','Monthly sponsorship report for donors']},
-  {h:'Communication', items:['WhatsApp / SMS broadcasts','Public masjid page with timings & campaigns']},
-  {h:'AI (Limited Scope)', items:['Admin copilot for collection & pledge questions','Automatic monthly reports & draft announcements','Never classifies Zakat or issues religious rulings']},
- ]},
-{slug:'mantiq-os', name:'Mantiq Business OS', tag:'Inventory · Sales · Payments · Accounting · AI',
- blurb:'A Pakistan-first business operating system connecting inventory, sales, payments, customers and AI in one platform — not just a POS.',
- plans:[
-  {name:'Starter', price:'Entry pricing', note:'Core operations', items:['Inventory / stock tracking','Payment due (customer udhaar)','Payment integration','WhatsApp messaging','Big-purchase receipts']},
-  {name:'Growth', price:'Mid-tier', note:'Growing businesses', items:['Everything in Starter','Smart business dashboard','Multi-warehouse / branches','Purchasing & supplier management']},
-  {name:'Enterprise', price:'Custom', note:'Larger operations', items:['Everything in Growth','AI Business Copilot','Automation rules','Full accounting & e-commerce integrations']},
- ],
- features:[
-  {h:'Inventory / Stock', items:['Real-time stock: available, reserved, sold, damaged, in-transit','Full stock ledger per product','Purchase → warehouse → sale → return → adjustment','Low/out-of-stock alerts','Stock counts & audits with full trail']},
-  {h:'Product Setup', items:['SKU, barcode, QR, category, brand, supplier','Purchase / selling / wholesale / retail pricing','Variants & multiple units','Serial numbers, batches, expiry dates']},
-  {h:'Payment Due (Receivables)', items:['Customer profiles with credit limit & history','Outstanding balance with aging','Partial-payment tracking','Automatic overdue reminders']},
-  {h:'Payment Integration', items:['Cash, card, bank transfer, Raast, QR, wallets','Payment links & QR invoices','Auto-matching payment → invoice → ledger','Review queue for unmatched payments']},
-  {h:'WhatsApp Messaging', items:['Invoices, receipts & reminders via WhatsApp','Order confirmations & delivery updates','Payment links sent directly in chat']},
-  {h:'Smart Dashboard & AI', items:['Sales, profit & cash-flow trends','Best-selling & dead-stock products','AI Business Copilot for natural-language insights','Automation rules to cut manual work']},
- ]},
-{slug:'education-ai', name:'Pakistan Education AI Agent', tag:'Students & Teachers',
- blurb:"An AI study and teaching companion trained on Pakistan's board curricula — not a generic chatbot — working in Urdu, English and Roman Urdu.",
- plans:[
-  {name:'Basic', price:'Free', note:'1 subject, 1 board', items:['15–20 Q&A per day','One board/curriculum','Sample past papers & MCQs','Text-only']},
-  {name:'Subscription', price:'Monthly or termly', note:'All boards & subjects', items:['Unlimited Q&A, all subjects','All boards + Cambridge O/A Level','Full past-paper archive & mock tests','Voice + snap-a-photo doubt solving','Offline / low-bandwidth mode']},
-  {name:'Institution', price:'Custom', note:'Schools, academies, tuition centers', items:['Multi-teacher, multi-class dashboard','Bulk student onboarding','Custom branding','Bulk WhatsApp broadcast to parents']},
- ],
- features:[
-  {h:'Learning & Doubt-Solving', items:['Subject-wise Q&A tutor mapped to board & grade','Step-by-step solutions, not just answers','Snap-a-photo doubt solving','Voice-based Q&A','Bilingual Urdu/English + Roman Urdu']},
-  {h:'Exam Preparation', items:['Solved & unsolved past papers by board/year','Auto-generated MCQ & short-question practice','MDCAT / ECAT / NAT entry-test prep','Personalized revision schedule','Mock tests with instant scoring']},
-  {h:'Study Tools', items:['Flashcards & spaced repetition','Essay assistant with plagiarism check','Progress dashboard & streaks','Gamification: badges & leaderboards']},
-  {h:'Teacher Tools', items:['Lesson-plan generator aligned to SLOs','Quiz, worksheet & test generator','Slide-deck generator & rubric builder','Auto-grading + AI-assisted essay grading (teacher confirms)']},
-  {h:'Institution Layer', items:['Multi-teacher, multi-class dashboard','Bulk onboarding & analytics','Custom branding','Bulk WhatsApp broadcasts']},
- ]},
-{slug:'law-quest', name:'Law Quest', tag:'Legal Client–Lawyer Platform',
- blurb:'An enterprise-grade platform where clients and verified lawyers run a case end to end — consultation, documents, hearings and payments — in one secure workspace.',
- plans:[
-  {name:'Starter', price:'PKR 3,000–5,000 / mo', note:'Solo lawyer, limited matters', items:['Verified profile','Limited active matters','Basic case workspace']},
-  {name:'Professional', price:'PKR 10,000–20,000 / mo', note:'Solo / small chambers', items:['Full case management','E-sign','Video consultations']},
-  {name:'Chambers', price:'PKR 40,000–90,000 / mo', note:'Up to ~10 users', items:['Team roles','Analytics','Everything in Professional']},
-  {name:'Enterprise', price:'Custom annual contract', note:'Firms, banks, corporate legal', items:['Multi-tenant organizations','Ethical walls','SSO, API, data residency','SLA support']},
- ],
- features:[
-  {h:'Onboarding & Verification', items:['Client OTP/email + CNIC verification','Lawyer bar-council & court-level verification','Practice-area tagging with proof','Firm/chambers onboarding with roles']},
-  {h:'Discovery & Matching', items:['Search by practice area, city, court, fee range','Guided intake with category suggestion','Verified reviews from completed engagements only']},
-  {h:'Engagement', items:['In-platform chat with attachments','Voice & video consultations','Automated off-platform contact detection','Engagement letter with e-sign','Urdu/English UI with RTL support']},
-  {h:'Case Management', items:['Matter workspace: parties, court, stage, timeline','Court hierarchy & case-type templates','Hearing calendar with reminders','Document vault with versioning']},
-  {h:'Documents & Drafting', items:['Wakalatnama, affidavits, notices & more','Bilingual clause library','E-sign with audit trail','Optional AI drafting — always lawyer-reviewed']},
-  {h:'Payments & Research', items:['Raast, JazzCash, Easypaisa, cards','Milestone-based protected payments','Case-law citation support','Complaint & dispute resolution center']},
- ]},
+  {
+    slug:'ilma-cms', name:'ILMA CMS', category:'Education · AI',
+    headline:'An AI-Powered Operating System for Modern Education.',
+    blurb:'ILMA connects schools, teachers, students and parents through one intelligent ecosystem for management, learning, communication and assessment.',
+    problems:[
+      ['Fragmented workflows','School operations, learning and communication often live in separate tools that never share the full picture.'],
+      ['Too much manual work','Attendance, assessments, lesson planning and reporting take time away from teaching and improvement.'],
+      ['Disconnected roles','Administrators, teachers, students and parents need one source of truth with an experience built for each role.'],
+      ['Limited visibility','Institutions need timely signals across performance, attendance, fees and engagement — not reports that arrive too late.'],
+    ],
+    features:[
+      ['AI Teacher Copilot','Generate lesson plans, quizzes, worksheets, tests, slides and rubrics.'],
+      ['AI Assessment Assistant','AI suggests grades and feedback while keeping the teacher in control.'],
+      ['Smart Attendance','Mark and monitor attendance with class and student-level reporting.'],
+      ['Unified Roles','Admin, teacher, student and parent experiences within one connected platform.'],
+      ['AI Risk Intelligence','Surface performance and payment signals that may require attention.'],
+      ['WhatsApp / SMS Communication','Create and distribute announcements through channels parents already use.'],
+    ],
+    roles:[['Admin','Run the institution.'],['Teacher','Teach and manage students.'],['Student','Learn, submit and track progress.'],['Parent','Stay informed and connected.']],
+    plans:[
+      {name:'Starter', price:'PKR 8,999 / month', note:'For small academies & tuition centers', items:['Up to 100 students','Core student management','Attendance','Basic assignments','Parent communication','Basic analytics','Mobile access']},
+      {name:'Growth', price:'PKR 19,999 / month', note:'For growing schools & academies', items:['Up to 300 students','Everything in Starter','Fees & finance','Exams & marks','Learning materials','Advanced analytics','Teacher AI tools','Priority support']},
+      {name:'Professional', price:'PKR 39,999 / month', note:'For established institutions', featured:true, items:['Up to 750 students','Everything in Growth','AI Assessment Assistant','AI Teacher Copilot','Smart timetable','AI risk insights','WhatsApp/SMS integrations','Advanced reports']},
+      {name:'Enterprise', price:'Custom pricing', note:'For multi-campus organizations', items:['Custom student capacity','Multi-campus management','Custom modules & branding','Advanced integrations','Dedicated infrastructure options','Account manager','SLA & priority support']},
+    ],
+    billing:'Annual billing can save 15–20%. Modules remain flexible, so smaller institutions can activate what they need without buying an oversized plan.',
+  },
+  {
+    slug:'pakistan-education-ai', name:'Pakistan Education AI', category:'AI · Education',
+    headline:'An AI Tutor Built for Pakistan.',
+    blurb:"A specialized study and teaching companion designed around Pakistan's board curricula, examination patterns and local learning needs — not a generic chatbot.",
+    problems:[
+      ['Generic answers','General-purpose AI does not reliably follow local boards, grades, syllabi or examination patterns.'],
+      ['One-size-fits-all learning','Students need explanations and revision shaped around their subjects, mistakes and pace.'],
+      ['Scattered exam preparation','Past papers, MCQs, mock tests and revision planning should work together in one study flow.'],
+      ['Teacher workload','Lesson plans, worksheets, quizzes and rubrics consume time that teachers could spend with students.'],
+    ],
+    features:[
+      ['Ask Anything','Subject-specific Q&A across core school subjects, grounded in the selected board and grade.'],
+      ['Solve With a Photo','Photograph a textbook question or handwritten work and receive a step-by-step explanation.'],
+      ['Exam Preparation','Practice with past papers, MCQs, mock tests, mistake analysis and personalized revision plans.'],
+      ['AI for Teachers','Generate lesson plans, quizzes, worksheets, tests, slides and grading rubrics.'],
+      ['Personalized Learning','Detect weak topics, track progress and adapt the study plan over time.'],
+      ['Built for Pakistan','Support for English, Urdu and Roman Urdu across Federal, provincial and Cambridge curricula.'],
+    ],
+    roles:[['Student','Ask, practice and revise.'],['Teacher','Plan lessons and create assessments.'],['Parent','Follow meaningful progress.'],['Institution','Support classes at scale.']],
+    plans:[],
+  },
 ];
 
-const SERVICES = [
- ['Web Development','Marketing sites, dashboards and custom web platforms built to scale.'],
- ['Mobile App Development','Native and cross-platform apps for iOS and Android.'],
- ['AR / VR Development','Immersive experiences for training, retail and product visualization.'],
- ['WordPress Development','Custom themes, plugins and full WordPress builds for content-driven sites.'],
- ['UI/UX Design','Research-backed interfaces that are easy to use and on-brand.'],
- ['Cloud & DevOps','Infrastructure, CI/CD pipelines and cloud architecture that scales with you.'],
- ['AI/ML Integration','Copilots, chatbots and automation built into your existing product.'],
- ['E-commerce Development','Online stores with payments, inventory and order management built in.'],
- ['Custom Software & SaaS','End-to-end product builds, from first prototype to a live platform.'],
- ['QA & Testing','Manual and automated testing to catch issues before your users do.'],
- ['Maintenance & Support','Ongoing updates, monitoring and support after launch.'],
- ['Product Strategy & Consulting','Idea validation, roadmapping and technical direction.'],
-];
+function productBySlug(slug){ return PRODUCTS.find(product => product.slug === slug); }
+function productName(slug){ return productBySlug(slug)?.name || ''; }
 
-const TESTIMONIALS = [
- ["Mantiq took our idea from a rough spec to a working platform faster than any team we've worked with.", "Ayesha R.", "Operations Lead, education sector"],
- ["The AI features actually get used by our staff — not just a demo feature nobody touches.", "Bilal K.", "Founder, retail business"],
- ["They understood our local payment and compliance needs from day one — no back and forth explaining basics.", "Sana M.", "Product Manager, fintech"],
-];
-
-const FAQ = [
- ["How do I get a quote?", "Fill out the contact form with a short project description — we typically reply within one business day with a scoping call."],
- ["Do you offer fixed-price or hourly billing?", "Both. Most product builds run fixed-price per milestone; ongoing support and small changes are billed hourly."],
- ["Can you sign an NDA before we share details?", "Yes — happy to sign an NDA before any detailed discussion of your project."],
- ["Do you work with international clients?", "Yes, we work with clients across time zones and can accommodate async communication."],
-];
-
-function slugName(s){ return (PRODUCTS.find(p=>p.slug===s)||{}).name || ''; }
+function serviceCards(limit){
+  return SERVICES.slice(0, limit || SERVICES.length).map((service, index) => `
+    <article class="service-card"><div class="service-number">0${index + 1}</div><h3>${service.name}</h3><p>${service.description}</p>
+    <div class="chip-row">${service.includes.map(item => `<span>${item}</span>`).join('')}</div><a class="text-link" onclick="go('contact')">${service.cta} →</a></article>`).join('');
+}
 
 function renderHome(){
- return `
- <section style="padding-top:110px;">
-  <div class="wrap">
-   <div class="eyebrow">Digital Products · SaaS · AI Platforms</div>
-   <h1>We build digital products that solve real problems.</h1>
-   <p class="lead">Mantiq is a product studio designing and building AI-powered SaaS, business platforms, and web &amp; mobile products from idea to launch.</p>
-   <a onclick="go('products')" class="cta">View Our Products</a>
-   <a onclick="go('contact')" class="cta ghost">Get in Touch</a>
-   <div class="focusrow">
-    <span>AI-Powered SaaS</span><span>Business Platforms</span><span>Web &amp; Mobile Products</span><span>Product Strategy &amp; Development</span>
-   </div>
-  </div>
- </section>
- <section style="padding-top:0;">
-  <div class="wrap">
-   <div class="eyebrow">What We Know</div>
-   <h2>Built from real sector research</h2>
-   <p class="lead">Every product starts from a documented spec for its sector, not a generic template.</p>
-   <div class="grid3">
-    <div class="card"><h3>Pakistan-first by default</h3><p>PKR pricing, Raast, JazzCash and Easypaisa, plus Urdu and Roman Urdu support built in from day one.</p></div>
-    <div class="card"><h3>AI with guardrails</h3><p>Every AI suggestion — grading, drafting, fund classification — stays reviewed by a human before it's final.</p></div>
-    <div class="card"><h3>Deep sector context</h3><p>Education, campus management, legal services and community finance each get their own workflows, not a one-size-fits-all screen.</p></div>
-   </div>
-  </div>
- </section>
- <section style="padding-top:0;">
-  <div class="wrap">
-   <div class="eyebrow">Benefits</div>
-   <h2>Why teams choose Mantiq</h2>
-   <div class="grid2">
-    <div class="card"><h3>Fast to launch</h3><p>Modular products you can start small with and grow into as your needs change.</p></div>
-    <div class="card"><h3>Local payments built-in</h3><p>Raast, JazzCash, Easypaisa and cards, connected straight to your ledger.</p></div>
-    <div class="card"><h3>AI-assisted, human-approved</h3><p>Automation that speeds up work without removing your oversight.</p></div>
-    <div class="card"><h3>One partner, many products</h3><p>From campus management to legal platforms — one team you can call for all of it.</p></div>
-   </div>
-  </div>
- </section>
- <section style="padding-top:0;">
-  <div class="wrap">
-   <div class="eyebrow">Testimonials</div>
-   <h2>What people say</h2>
-   <div class="tgrid">
-    ${TESTIMONIALS.map(t=>`<div class="tcard"><p class="quote">"${t[0]}"</p><div class="who">${t[1]} — ${t[2]}</div></div>`).join('')}
-   </div>
-  </div>
- </section>`;
+  return `
+  <section class="hero-section"><div class="wrap"><div class="eyebrow">AI PRODUCTS · DIGITAL ENGINEERING · TECHNOLOGY</div><h1>We Build Intelligent Products. And the Teams Behind Them.</h1><p class="lead">AL MANTIQ is a product-driven technology company building AI-powered software while helping businesses turn ambitious ideas into reliable, scalable digital products.</p><p class="hero-support">From custom ERP platforms to AI, mobile, XR and Salesforce solutions — we bring product thinking, engineering and quality together under one team.</p><a onclick="go('contact')" class="cta">Build With Us →</a><a onclick="go('products')" class="cta ghost">Explore Our Products →</a><div class="focusrow"><span>AI-Powered Products</span><span>Digital Engineering</span><span>Flexible Teams</span><span>Quality Built In</span></div></div></section>
+  <section><div class="wrap split-intro"><div><div class="eyebrow">MORE THAN SOFTWARE DEVELOPMENT</div><h2>We Build What Businesses Need Next.</h2></div><div><p class="lead">AL MANTIQ combines AI, software engineering, product development and quality engineering.</p><p class="body-copy">We build our own products — and work with companies that need an experienced offshore technology team or specialized individual talent in their timezone. From one expert to an entire product team, we plug into the way you work.</p></div></div></section>
+  <section class="section-tint"><div class="wrap"><div class="eyebrow">SERVICES</div><h2>One Team. Every Layer of Product Development.</h2><div class="service-grid home-service-grid">${serviceCards(7)}</div><a onclick="go('services')" class="cta ghost">Explore All Services →</a></div></section>
+  <section><div class="wrap team-callout"><div><div class="eyebrow">OFFSHORE TEAM</div><h2>Your Product Team. Without the Hiring Headache.</h2><p class="lead">Tell us what you're building, what expertise you need and how you want to work. We'll match you with developers, engineers, QA specialists and project leaders.</p></div><div class="team-points"><span>Your Timezone</span><span>Your Workflow</span><span>Your Technology Stack</span><span>Your Team Size</span></div><div class="button-row"><a onclick="go('services')" class="cta">Find Your Team →</a><a onclick="go('contact')" class="cta ghost">Schedule an Interview →</a></div></div></section>
+  <section class="section-tint"><div class="wrap"><div class="eyebrow">OUR PRODUCTS</div><h2>We Don't Just Build Products. We Use What We Build.</h2><p class="lead">Our products are born from the same engineering discipline we bring to client projects — combining AI, automation, product design and real-world problem solving.</p><div class="product-showcase">${PRODUCTS.map((product,index)=>`<article class="product-feature"><div class="product-index">0${index+1} / ${product.category}</div><h3>${product.name}</h3><h4>${product.headline}</h4><p>${product.blurb}</p><a class="text-link" onclick="go('product/${product.slug}')">Explore ${product.name} →</a></article>`).join('')}</div></div></section>
+  <section><div class="wrap"><div class="eyebrow">OUR APPROACH</div><h2>Think Clearly. Build Intelligently.</h2><div class="process-grid"><div><span>01</span><h3>Think</h3><p>Understand the problem before writing the solution.</p></div><div><span>02</span><h3>Build</h3><p>Turn ideas into products people can actually use.</p></div><div><span>03</span><h3>Improve</h3><p>Measure, test and continuously make the product better.</p></div></div></div></section>
+  <section class="section-tint"><div class="wrap"><div class="eyebrow">WHY AL MANTIQ</div><h2>Built Around How Modern Teams Actually Work.</h2><div class="value-grid">${[['Product Mindset','We focus on the complete product, not isolated features.'],['AI-Native','We use AI where it improves products, workflows and decisions.'],['Engineering + QA','Development and quality stay in the same conversation.'],['Flexible Teams','Hire a specialist, a dedicated team or full delivery capability.'],['Timezone Compatible','Work with a team that fits your hours and communication rhythm.'],['Long-Term Partnership','Continuous product development, not one-off tickets.']].map(item=>`<div><h3>${item[0]}</h3><p>${item[1]}</p></div>`).join('')}</div></div></section>
+  ${renderFinalCta()}`;
 }
 
 function renderProducts(){
- return `<section style="padding-top:100px;"><div class="wrap">
-  <div class="eyebrow">Products</div>
-  <h2>What we've built</h2>
-  <p class="lead">Every product below is a full platform — open one to see pricing and the complete feature list.</p>
-  <div class="plist">
-   ${PRODUCTS.map(p=>`
-    <div class="prow">
-     <div>
-      <div class="ptag">${p.tag}</div>
-      <h3>${p.name}</h3>
-      <p>${p.blurb}</p>
-     </div>
-     <div class="pside">
-      <div class="starterbadge">Starter: ${p.plans[0].price}</div>
-      <div class="otherplans">+ ${p.plans.length-1} more plan${p.plans.length>2?'s':''}: ${p.plans.slice(1).map(pl=>pl.name).join(', ')}</div>
-      <a class="cta sm" target="_blank" href="#/product/${p.slug}">View Full Details ↗</a>
-     </div>
-    </div>`).join('')}
-  </div>
- </div></section>`;
+  return `<section class="page-hero"><div class="wrap"><div class="eyebrow">PRODUCTS</div><h1>Intelligent Products Built by AL MANTIQ.</h1><p class="lead">Two focused products, each built around a real market and a clear operational problem.</p><div class="product-grid">${PRODUCTS.map((product,index)=>`<article class="product-card"><div class="product-index">0${index+1} / ${product.category}</div><h2>${product.name}</h2><h3>${product.headline}</h3><p>${product.blurb}</p><a class="cta" onclick="go('product/${product.slug}')">View Product →</a></article>`).join('')}</div></div></section>`;
 }
 
 function renderProductDetail(slug){
- const p = PRODUCTS.find(x=>x.slug===slug);
- if(!p) return `<section style="padding-top:110px;"><div class="wrap"><p>Product not found. <a onclick="go('products')" style="color:var(--blue);">Back to Products</a></p></div></section>`;
- return `<section style="padding-top:100px;"><div class="wrap">
-  <a class="backlink" onclick="go('products')">← All Products</a>
-  <div class="eyebrow">${p.tag}</div>
-  <h1 style="font-size:34px;">${p.name}</h1>
-  <p class="lead">${p.blurb}</p>
-  <div class="plans-grid">
-   ${p.plans.map((pl,i)=>`
-    <div class="plan ${i===0?'starter':''}">
-     <div class="pname">${pl.name}${i===0?' · Starter':''}</div>
-     <div class="pprice">${pl.price}</div>
-     <div class="pnote">${pl.note}</div>
-     <ul>${pl.items.map(it=>`<li>${it}</li>`).join('')}</ul>
-    </div>`).join('')}
-  </div>
-  <h2 style="margin-top:20px;">Full Functionality</h2>
-  <div class="featgrid">
-   ${p.features.map(f=>`
-    <div class="featgroup"><h3>${f.h}</h3><ul>${f.items.map(it=>`<li>${it}</li>`).join('')}</ul></div>`).join('')}
-  </div>
-  <div class="comingsoon">Much more is coming… we're actively expanding this product. <a onclick="go('contact')" style="color:var(--blue);">Get in touch</a> to be first in line for new features.</div>
- </div></section>`;
+  const product = productBySlug(slug);
+  if(!product) return `<section class="page-hero"><div class="wrap"><h1>Product not found.</h1><a class="cta" onclick="go('products')">Back to Products</a></div></section>`;
+  const pricing = product.plans.length ? `<section class="section-tint"><div class="wrap"><div class="eyebrow">PRICING</div><h2>Plans That Scale With Your Institution.</h2><div class="plans-grid">${product.plans.map(plan=>`<article class="plan ${plan.featured?'featured':''}">${plan.featured?'<div class="popular-badge">Most Popular</div>':''}<div class="pname">${plan.name}</div><div class="pprice">${plan.price}</div><div class="pnote">${plan.note}</div><ul>${plan.items.map(item=>`<li>${item}</li>`).join('')}</ul><a class="text-link" onclick="go('contact')">Get a Demo →</a></article>`).join('')}</div><p class="pricing-note">${product.billing}</p></div></section>` : '';
+  return `<section class="product-hero"><div class="wrap"><a class="backlink" onclick="go('products')">← All Products</a><div class="eyebrow">${product.category}</div><h1>${product.name}</h1><h2>${product.headline}</h2><p class="lead">${product.blurb}</p><a class="cta" onclick="go('contact')">Get a Demo →</a><a class="cta ghost" onclick="go('contact')">Talk to Our Team →</a></div></section><section class="section-tint"><div class="wrap"><div class="eyebrow">WHAT IT SOLVES</div><h2>Built to Solve the Problems That Slow You Down.</h2><div class="problem-grid">${product.problems.map((item,index)=>`<article><span>0${index+1}</span><h3>${item[0]}</h3><p>${item[1]}</p></article>`).join('')}</div><p class="section-statement">One platform. Less complexity. Better outcomes.</p></div></section><section><div class="wrap"><div class="eyebrow">FEATURES</div><h2>Everything You Need. Nothing You Don't.</h2><div class="feature-card-grid">${product.features.map(item=>`<article><h3>${item[0]}</h3><p>${item[1]}</p></article>`).join('')}</div></div></section><section class="section-tint"><div class="wrap"><div class="eyebrow">HOW IT WORKS</div><h2>From Setup to Results.</h2><div class="timeline">${[['Set Up','Configure your organization.'],['Connect','Bring your users, workflows and data together.'],['Automate','Let the platform handle repetitive work.'],['Grow','Use insights to continuously improve.']].map((item,index)=>`<div><span>0${index+1}</span><h3>${item[0]}</h3><p>${item[1]}</p></div>`).join('')}</div></div></section><section><div class="wrap"><div class="eyebrow">PRODUCT EXPERIENCE</div><h2>One Platform. Distinct Experiences.</h2><div class="role-grid">${product.roles.map(item=>`<article><h3>${item[0]}</h3><p>${item[1]}</p></article>`).join('')}</div></div></section>${pricing}${renderFinalCta('Ready to See What It Can Do?','See the product in action with a personalized demo.','Get a Demo →')}`;
 }
 
 function renderServices(){
- return `<section style="padding-top:100px;"><div class="wrap">
-  <div class="eyebrow">Services</div>
-  <h2>Everything a software house should offer</h2>
-  <p class="lead">From AR/VR to WordPress, mobile apps to AI — under one roof.</p>
-  <div class="servicelist">
-   ${SERVICES.map(s=>`<div class="servicerow"><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join('')}
-  </div>
- </div></section>`;
+  return `<section class="page-hero"><div class="wrap"><div class="eyebrow">SERVICES</div><h1>One Team. Every Layer of Product Development.</h1><p class="lead">From the first line of code to the product people actually use — AL MANTIQ brings engineering, design and quality together under one roof.</p><a class="cta" onclick="go('contact')">Start a Project →</a><a class="cta ghost" href="#team-configurator">Find Your Team →</a></div></section><section><div class="wrap"><div class="service-grid">${serviceCards()}</div></div></section><section class="section-tint" id="team-configurator"><div class="wrap"><div class="team-configurator"><div class="eyebrow">OFFSHORE TEAM</div><h2>Your Team. Your Timezone. Zero Hiring Headache.</h2><p class="lead">Skip the job posts, interviews and onboarding. Tell us what you're building — we'll match you with specialists who already fit how you work.</p><div class="config-grid"><label>Your Timezone<select id="team-timezone"><option>US (EST/PST)</option><option>UK</option><option>Europe</option><option>Middle East</option><option>Asia-Pacific</option><option>Flexible / Overlap Hours</option></select></label><label>Your Workflow<select id="team-workflow"><option>Agile / Scrum</option><option>Kanban</option><option>Waterfall</option><option>Hybrid</option><option>Not Sure Yet</option></select></label><label>Your Tech Stack<select id="team-stack"><option>React / Node.js</option><option>Python / Django</option><option>.NET</option><option>Java / Spring</option><option>Salesforce</option><option>AI / ML</option><option>Other</option></select></label><label>Your Team Size<select id="team-size"><option>1 Specialist</option><option>Small Team (2–4)</option><option>Full Pod (5–10)</option><option>Enterprise Team (10+)</option></select></label></div><button class="cta button-cta" type="button" onclick="startTeamRequest()">Find Your Team →</button><a class="cta ghost" onclick="go('contact')">Schedule an Interview →</a><p class="microcopy">Takes less than a minute. No commitment.</p></div></div></section>${renderFinalCta()}`;
 }
 
 function renderContact(){
- return `<section style="padding-top:100px;"><div class="wrap">
-  <div class="eyebrow">Contact</div>
-  <h2>Let's build something.</h2>
-  <p class="lead">Tell us what you're working on — we'll get back to you within one business day.</p>
-  <div class="contactgrid">
-   <div>
-    <div class="chan"><span class="k">General</span><span>hello@mantiq.io</span></div>
-    <div class="chan"><span class="k">Sales</span><span>sales@mantiq.io</span></div>
-    <div class="chan"><span class="k">Support</span><span>support@mantiq.io</span></div>
-    <div class="chan"><span class="k">WhatsApp</span><span>Chat with our team on WhatsApp Business</span></div>
-    <div class="chan"><span class="k">Hours</span><span>Mon–Fri, 9:00–18:00</span></div>
-    <div class="socialrow"><span>LinkedIn</span><span>X / Twitter</span><span>Instagram</span><span>Facebook</span><span>GitHub</span></div>
-    <div style="margin-top:30px;">
-     <h3 style="margin-bottom:12px;">Frequently Asked Questions</h3>
-     <div id="faqlist">${FAQ.map((f,i)=>`<div class="faq"><div class="faqq" data-i="${i}">${f[0]}<span>+</span></div><div class="faqa" id="faqa${i}">${f[1]}</div></div>`).join('')}</div>
-    </div>
-    <div style="margin-top:30px;">
-     <h3 style="margin-bottom:10px;">Stay updated</h3>
-     <div class="newsletter"><input type="email" placeholder="Your email"><button class="submit" style="width:auto;">Subscribe</button></div>
-    </div>
-   </div>
-   <form id="cform">
-    <input type="text" placeholder="Your name" required>
-    <input type="email" placeholder="Your email" required>
-    <input type="text" placeholder="Company (optional)">
-    <select><option>Project type…</option><option>New product / SaaS</option><option>Web development</option><option>Mobile app</option><option>AI / automation</option><option>Other</option></select>
-    <select><option>Estimated budget…</option><option>Under $5,000</option><option>$5,000–$20,000</option><option>$20,000–$50,000</option><option>$50,000+</option></select>
-    <textarea placeholder="Tell us about your project"></textarea>
-    <button type="submit" class="submit">Send Message</button>
-   </form>
-  </div>
- </div></section>`;
+  return `<section class="page-hero contact-hero"><div class="wrap"><div class="eyebrow">GET IN TOUCH</div><h1>Let's Talk About What You're Building.</h1><p class="lead">No contact forms that vanish into a queue. Tell us what you need — book a slot directly, or send a quick message and a real person replies within one business day.</p></div></section><section><div class="wrap"><div class="contact-paths"><article class="contact-path calendar-path"><div class="micro-label">STRAIGHT TO A CONVERSATION</div><h2>Already Know What You Need?</h2><p>Grab a slot for a 30-minute conversation about your product, your team or both.</p><div class="calendar-placeholder"><span>30-minute discovery call</span><strong>Calendar connection pending</strong><p>Until the booking calendar is connected, request a time by email and we'll arrange it directly.</p><a class="cta" href="mailto:hello@mantiq.io?subject=30-minute%20discovery%20call">Request a Time →</a></div></article><article class="contact-path"><div class="micro-label">NOT READY TO TALK YET?</div><h2>Just Have a Question?</h2><p>Drop us a few details. We read every message ourselves — no auto-responders pretending to be a person.</p><form id="cform"><label>Name<input name="name" type="text" required></label><label>Email<input name="email" type="email" required></label><label>Company <span>(optional)</span><input name="company" type="text"></label><label>What are you looking for?<select name="service" required><option value="">Select one</option>${SERVICES.map(service=>`<option>${service.name}</option>`).join('')}<option>Offshore Team</option><option>Not Sure Yet</option></select></label><label>Message<textarea name="message" rows="4" required></textarea></label><button class="submit" type="submit">Send Message →</button><p class="form-status" id="form-status" aria-live="polite"></p></form></article></div></div></section><section class="section-tint"><div class="wrap"><div class="eyebrow">WHAT HAPPENS NEXT</div><div class="next-steps"><div><span>01</span><h3>We Read Every Message</h3><p>A real person reviews what you send within one business day — not a ticket number.</p></div><div><span>02</span><h3>We Ask the Right Questions</h3><p>A short call or email helps us understand scope properly before anyone quotes anything.</p></div><div><span>03</span><h3>We Propose a Path</h3><p>Team, timeline and next steps — clear and specific, with no obligation to proceed.</p></div></div></div></section><section class="direct-contact"><div class="wrap"><a href="mailto:hello@mantiq.io">hello@mantiq.io</a><span>We typically reply within 24 hours</span><div class="socialrow"><span>LinkedIn</span><span>Instagram</span><span>X</span><span>GitHub</span></div></div></section>`;
 }
 
-function wireContactExtras(){
- document.querySelectorAll('.faqq').forEach(q=>q.onclick=()=>document.getElementById('faqa'+q.dataset.i).classList.toggle('open'));
- const f = document.getElementById('cform');
- if(f) f.addEventListener('submit', function(e){
-  e.preventDefault();
-  const [name,email,company] = this.querySelectorAll('input');
-  const msg = this.querySelector('textarea').value;
-  const subject = encodeURIComponent('Project inquiry from ' + name.value);
-  const body = encodeURIComponent(msg + '\n\nFrom: ' + name.value + ' (' + email.value + ') — ' + (company.value||'—'));
-  window.location.href = 'mailto:hello@mantiq.io?subject=' + subject + '&body=' + body;
- });
+function renderFinalCta(title='Let\'s Build Something That Matters.', copy="Whether you're building a new product, modernizing an existing system or looking for an experienced technology team — start with a conversation.", primary='Start a Project →'){
+  return `<section class="final-cta"><div class="wrap"><div class="eyebrow">HAVE AN IDEA? NEED A TEAM?</div><h2>${title}</h2><p class="lead">${copy}</p><a class="cta" onclick="go('contact')">${primary}</a><a class="cta ghost" onclick="go('contact')">Talk to an Expert →</a></div></section>`;
+}
+
+function startTeamRequest(){
+  const fields = [['Timezone','team-timezone'],['Workflow','team-workflow'],['Tech stack','team-stack'],['Team size','team-size']];
+  const summary = fields.map(([label,id]) => `${label}: ${document.getElementById(id).value}`).join('\n');
+  sessionStorage.setItem('mantiq-team-request', `I'd like help building an offshore team.\n\n${summary}`);
+  go('contact');
+}
+
+function wireContact(){
+  const form = document.getElementById('cform');
+  if(!form) return;
+  const saved = sessionStorage.getItem('mantiq-team-request');
+  if(saved){ form.elements.message.value = saved; form.elements.service.value = 'Offshore Team'; sessionStorage.removeItem('mantiq-team-request'); }
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const subject = encodeURIComponent(`Project inquiry — ${data.get('service')}`);
+    const body = encodeURIComponent(`${data.get('message')}\n\nName: ${data.get('name')}\nEmail: ${data.get('email')}\nCompany: ${data.get('company') || '—'}\nLooking for: ${data.get('service')}`);
+    document.getElementById('form-status').textContent = "Got it — your email app is opening. We'll reply within one business day.";
+    window.location.href = `mailto:hello@mantiq.io?subject=${subject}&body=${body}`;
+  });
+}
+
+function enhanceGlobalChrome(){
+  document.addEventListener('click', event => {
+    const jump = event.target.closest('a[href="#team-configurator"]');
+    if(!jump) return;
+    event.preventDefault();
+    document.getElementById('team-configurator')?.scrollIntoView({behavior:'smooth'});
+  });
+  document.querySelectorAll('.logo').forEach(logo => {
+    const symbol = logo.querySelector('.brand-symbol');
+    logo.innerHTML = '';
+    if(symbol) logo.append(symbol);
+    logo.append(document.createTextNode('AL MANTIQ'));
+  });
+  const footer = document.querySelector('.site-footer');
+  if(footer) footer.innerHTML = `<div class="footer-inner"><div><span class="footer-brand-text">AL MANTIQ</span><p>Intelligent Products. Digital Engineering.</p></div><div><strong>Products</strong><a href="#/product/ilma-cms">ILMA CMS</a><a href="#/product/pakistan-education-ai">Pakistan Education AI</a></div><div><strong>Services</strong><a href="#/services">Software Development</a><a href="#/services">Mobile App Development</a><a href="#/services">QA & Testing</a></div><div><strong>Company</strong><a href="#/contact">Contact</a><a href="#/contact">Start a Project</a></div></div><div class="footer-bottom"><span>© 2026 AL MANTIQ. All rights reserved.</span><span>Privacy Policy · Terms of Service</span></div>`;
 }
 
 function route(){
- const h = location.hash.replace(/^#\/?/, '');
- const app = document.getElementById('app');
- document.querySelectorAll('.navlinks a').forEach(a=>a.classList.remove('on'));
- if(h.startsWith('product/')){
-  app.innerHTML = renderProductDetail(h.split('/')[1]);
-  document.title = slugName(h.split('/')[1]) + ' — Mantiq';
- } else if(h === 'products'){ app.innerHTML = renderProducts(); nthNav(1); document.title='Products — Mantiq'; }
- else if(h === 'services'){ app.innerHTML = renderServices(); nthNav(2); document.title='Services — Mantiq'; }
- else if(h === 'contact'){ app.innerHTML = renderContact(); nthNav(3); wireContactExtras(); document.title='Contact — Mantiq'; }
- else { app.innerHTML = renderHome(); nthNav(0); document.title='Mantiq — Digital Products That Solve Real Problems'; }
- window.scrollTo(0,0);
+  const hash = location.hash.replace(/^#\/?/, '');
+  const app = document.getElementById('app');
+  document.querySelectorAll('.navlinks a').forEach(link => link.classList.remove('on'));
+  if(hash.startsWith('product/')){ app.innerHTML = renderProductDetail(hash.split('/')[1]); document.title = `${productName(hash.split('/')[1])} — AL MANTIQ`; activateNav(1); }
+  else if(hash === 'products'){ app.innerHTML = renderProducts(); document.title = 'Products — AL MANTIQ'; activateNav(1); }
+  else if(hash === 'services'){ app.innerHTML = renderServices(); document.title = 'Services — AL MANTIQ'; activateNav(2); }
+  else if(hash === 'contact'){ app.innerHTML = renderContact(); document.title = 'Contact — AL MANTIQ'; activateNav(3); wireContact(); }
+  else { app.innerHTML = renderHome(); document.title = 'AL MANTIQ — Intelligent Products & Digital Engineering'; activateNav(0); }
+  window.scrollTo(0,0);
 }
-function nthNav(i){ const links=document.querySelectorAll('.navlinks a'); if(links[i]) links[i].classList.add('on'); }
-function go(h){ location.hash = h ? '#/'+h : ''; }
+
+function activateNav(index){ const links = document.querySelectorAll('.navlinks a'); if(links[index]) links[index].classList.add('on'); }
+function go(path){ location.hash = path ? `#/${path}` : ''; }
+
+enhanceGlobalChrome();
 window.addEventListener('hashchange', route);
 route();

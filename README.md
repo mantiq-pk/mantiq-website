@@ -1,6 +1,6 @@
 # Mantiq website designs
 
-Five independent redesigns of the supplied Mantiq website, presented together on a comparison page. The original wording, product information, pricing, services, testimonials, FAQs, and contact behavior are preserved.
+Five independent visual directions for the AL MANTIQ website, presented together on a comparison page. All directions share the October 2026 website content for the company, services, offshore-team offering, ILMA CMS, Pakistan Education AI, and contact journey.
 
 **Live site:** [mantiq-pk.github.io/mantiq-website](https://mantiq-pk.github.io/mantiq-website/)
 
@@ -33,7 +33,7 @@ assets/
   css/brand.css                  Shared logo presentation
   css/gallery.css                Comparison-page styles
   css/theme.css                  Shared light/dark toggle presentation
-  js/content.js                  Original content and routing script
+  js/content.js                  Shared content, page templates, and routing
   js/gallery.js                  Comparison-page behavior
   js/theme-init.js               Early theme selection to prevent flashing
   js/theme.js                    Theme toggle and saved preference behavior
@@ -55,12 +55,12 @@ variant-2.html                    Compatibility redirect to Modern
 variant-3.html                    Compatibility redirect to Graphic
 ```
 
-Each design loads the shared content script and adds its own styles and presentation enhancements. The legacy `variant-*.html` links redirect to the corresponding design and preserve hash routes, including product-detail links.
+Each design loads the shared content script and adds its own styles and presentation enhancements. The legacy `variant-*.html` links redirect to the corresponding design and preserve hash routes, including the dedicated ILMA CMS and Pakistan Education AI pages.
 
 ## Maintenance
 
-Edit a design's `styles.css` for its visual treatment and `presentation.js` for presentation enhancements. Keep shared brand styling in `assets/css/brand.css` and comparison-page changes in its dedicated files. The transparent SVG logos are applied as CSS masks and inherit each design’s `--brand-color`; the original PNGs remain preserved. Editorial testimonials use 24px horizontal padding.
+Edit a design's `styles.css` for its visual treatment and `presentation.js` for presentation enhancements. Keep shared brand styling in `assets/css/brand.css` and comparison-page changes in its dedicated files. The transparent SVG logos are applied as CSS masks and inherit each design’s `--brand-color`; the original PNGs remain preserved.
 
-`assets/js/content.js` contains the original inline JavaScript exactly. It owns the wording, product data, page rendering, hash routing, FAQs, and contact form behavior. Preserve it when making visual changes; do not replace content inside a design's presentation layer. `reference/original.html` remains the unchanged source for comparison.
+`assets/js/content.js` owns the shared wording, product data, page rendering, hash routing, offshore-team configurator, and contact behavior. Keep content changes there rather than duplicating them inside a design's presentation layer. `reference/original.html` remains the unchanged historical source for comparison.
 
 See [design notes](docs/design-notes.md) for further context.
