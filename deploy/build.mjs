@@ -71,20 +71,40 @@ api.enhanceGlobalChrome();
 const footer = FOOTER_HTML;
 const withHrefs = html => html.replace(/<a([^>]*?)onclick="go\('([^']*)'\)"([^>]*)>/g, (m, a, p, b) => `<a${a}href="/${p}"${b}>`);
 
-const ORG = { '@type': 'Organization', '@id': SITE + '/#org', name: 'AL MANTIQ', url: SITE + '/', logo: SITE + '/assets/brand/mantiq-symbol.png', description: 'AL MANTIQ is a product-driven technology company building AI-powered software and digital products.' };
-const crumbs = items => ({ '@type': 'BreadcrumbList', itemListElement: items.map(([name, url], i) => ({ '@type': 'ListItem', position: i + 1, name, item: SITE + url })) });
+const ORG = {
+  '@type': 'Organization', '@id': SITE + '/#org', name: 'AL MANTIQ', alternateName: 'Mantiq', url: SITE + '/',
+  logo: { '@type': 'ImageObject', url: SITE + '/assets/brand/mantiq-symbol.png', width: 1254, height: 1254 },
+  image: SITE + '/assets/brand/og-image.jpg', email: 'hello@mantiq.io',
+  description: 'AL MANTIQ is a product-driven technology company building AI-powered software and digital products.',
+  contactPoint: { '@type': 'ContactPoint', contactType: 'sales', email: 'hello@mantiq.io', availableLanguage: ['English'] },
+};
+const WEBSITE = { '@type': 'WebSite', '@id': SITE + '/#site', url: SITE + '/', name: 'AL MANTIQ', alternateName: 'Mantiq', inLanguage: 'en', publisher: { '@id': SITE + '/#org' } };
+const crumbs = items => ({ '@type': 'BreadcrumbList', '@id': SITE + items.at(-1)[1] + '#breadcrumb', itemListElement: items.map(([name, url], i) => ({ '@type': 'ListItem', position: i + 1, name, item: SITE + url })) });
+const webPage = (url, name, description, type = 'WebPage') => ({ '@type': type, '@id': SITE + url + '#webpage', url: SITE + url, name, description, inLanguage: 'en', isPartOf: { '@id': SITE + '/#site' }, about: { '@id': SITE + '/#org' }, ...(url === '/' ? {} : { breadcrumb: { '@id': SITE + url + '#breadcrumb' } }) });
+const productTitle = p => p.slug === 'ilma-cms' ? 'ILMA CMS | AI School Management Platform | AL MANTIQ' : 'Pakistan Education AI | AI Tutor for Pakistan | AL MANTIQ';
+const softwareApplication = p => ({
+  '@type': 'SoftwareApplication', '@id': `${SITE}/product/${p.slug}#software`, name: p.name,
+  applicationCategory: 'EducationalApplication', operatingSystem: 'Web', description: p.blurb,
+  url: `${SITE}/product/${p.slug}`, image: SITE + '/assets/brand/og-image.jpg', publisher: { '@id': SITE + '/#org' },
+  featureList: p.features.map(feature => feature[0]),
+  ...(p.slug === 'ilma-cms' ? { offers: p.plans.filter(plan => /^PKR\s[\d,]+/.test(plan.price)).map(plan => ({
+    '@type': 'Offer', name: `${p.name} ${plan.name}`, url: `${SITE}/product/${p.slug}`, availability: 'https://schema.org/InStock',
+    price: plan.price.match(/[\d,]+/)[0].replace(/,/g, ''), priceCurrency: 'PKR',
+    priceSpecification: { '@type': 'UnitPriceSpecification', price: plan.price.match(/[\d,]+/)[0].replace(/,/g, ''), priceCurrency: 'PKR', billingDuration: 'P1M' },
+  })) } : {}),
+});
 
 const pages = [
-  { url: '/', title: 'AL MANTIQ — AI Products & Digital Engineering | Custom ERP, Mobile, Salesforce', desc: 'AL MANTIQ is a product-driven technology company building AI-powered software — custom ERP, mobile apps, Salesforce, AR/VR/XR, QA and ILMA CMS for education.', html: api.renderHome(),
-    ld: [ORG, { '@type': 'WebSite', '@id': SITE + '/#site', url: SITE + '/', name: 'AL MANTIQ', publisher: { '@id': SITE + '/#org' } }] },
-  { url: '/products', title: 'Products — ILMA CMS & Pakistan Education AI | AL MANTIQ', desc: 'Intelligent products built by AL MANTIQ: ILMA CMS, an AI-powered operating system for schools, and Pakistan Education AI.', html: api.renderProducts(),
-    ld: [crumbs([['Home', '/'], ['Products', '/products']]), { '@type': 'ItemList', itemListElement: api.PRODUCTS.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE}/product/${p.slug}`, name: p.name })) }] },
-  { url: '/services', title: 'Services — Custom ERP, Mobile, Salesforce, XR & QA | AL MANTIQ', desc: 'Custom ERP, software and mobile app development, Salesforce, AR/VR/XR, QA & testing and project management — one team for every layer of product development.', html: api.renderServices(),
-    ld: [crumbs([['Home', '/'], ['Services', '/services']]), { '@type': 'ItemList', itemListElement: api.SERVICES.map((s, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'Service', name: s.name, description: s.description, provider: { '@id': SITE + '/#org' } } })) }] },
-  { url: '/contact', title: 'Contact AL MANTIQ — Start a Project or Build Your Team', desc: 'Talk to AL MANTIQ about your product, ERP, mobile app or offshore team. Book a 30-minute conversation or send a message — we reply within one business day.', html: api.renderContact(),
-    ld: [crumbs([['Home', '/'], ['Contact', '/contact']]), { '@type': 'ContactPage', url: SITE + '/contact', name: 'Contact AL MANTIQ' }] },
-  ...api.PRODUCTS.map(p => ({ url: `/product/${p.slug}`, title: `${p.name} — ${p.headline.replace(/\.$/, '')} | AL MANTIQ`, desc: p.blurb, html: api.renderProductDetail(p.slug),
-    ld: [crumbs([['Home', '/'], ['Products', '/products'], [p.name, `/product/${p.slug}`]]), { '@type': 'SoftwareApplication', name: p.name, applicationCategory: 'BusinessApplication', operatingSystem: 'Web', description: p.blurb, url: `${SITE}/product/${p.slug}`, publisher: { '@id': SITE + '/#org' } }] })),
+  { url: '/', title: 'AL MANTIQ | AI Products & Digital Engineering', desc: 'AL MANTIQ builds AI-powered products, custom ERP platforms, mobile apps, Salesforce solutions and flexible engineering teams for ambitious businesses.', html: api.renderHome(),
+    ld: [ORG, WEBSITE, webPage('/', 'AL MANTIQ | AI Products & Digital Engineering', 'AL MANTIQ builds AI-powered products and reliable digital platforms for ambitious businesses.')] },
+  { url: '/products', title: 'AI Products: ILMA CMS & Education AI | AL MANTIQ', desc: 'Explore ILMA CMS, an AI-powered operating system for schools, and Pakistan Education AI, a curriculum-aware AI tutor built for local learners.', html: api.renderProducts(),
+    ld: [webPage('/products', 'AI Products: ILMA CMS & Education AI | AL MANTIQ', 'Explore the AI-powered education products built by AL MANTIQ.'), crumbs([['Home', '/'], ['Products', '/products']]), { '@type': 'ItemList', '@id': SITE + '/products#products', name: 'AL MANTIQ products', itemListElement: api.PRODUCTS.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE}/product/${p.slug}`, name: p.name })) }] },
+  { url: '/services', title: 'Software Development & Engineering Services | AL MANTIQ', desc: 'Build custom ERP, web and mobile apps, Salesforce solutions and immersive XR products with AL MANTIQ engineering, QA and delivery teams.', html: api.renderServices(),
+    ld: [webPage('/services', 'Software Development & Engineering Services | AL MANTIQ', 'Custom software development, engineering, QA and delivery services from AL MANTIQ.'), crumbs([['Home', '/'], ['Services', '/services']]), { '@type': 'ItemList', '@id': SITE + '/services#services', name: 'AL MANTIQ services', itemListElement: api.SERVICES.map((s, i) => ({ '@type': 'ListItem', position: i + 1, item: { '@type': 'Service', name: s.name, description: s.description, url: SITE + '/services', provider: { '@id': SITE + '/#org' } } })) }] },
+  { url: '/contact', title: 'Contact AL MANTIQ | Start a Project or Build Your Team', desc: 'Talk to AL MANTIQ about your software product, ERP, mobile app or offshore team. Book a 30-minute call or send a message today.', html: api.renderContact(),
+    ld: [webPage('/contact', 'Contact AL MANTIQ | Start a Project or Build Your Team', 'Book a 30-minute call or contact AL MANTIQ about your product or engineering team.', 'ContactPage'), crumbs([['Home', '/'], ['Contact', '/contact']])] },
+  ...api.PRODUCTS.map(p => ({ url: `/product/${p.slug}`, title: productTitle(p), desc: p.blurb, html: api.renderProductDetail(p.slug),
+    ld: [webPage(`/product/${p.slug}`, productTitle(p), p.blurb), crumbs([['Home', '/'], ['Products', '/products'], [p.name, `/product/${p.slug}`]]), softwareApplication(p)] })),
 ];
 
 // client-side navigation keeps title/description/canonical in sync with the prerendered pages
@@ -95,7 +115,7 @@ clientJs = clientJs.replace(/if\(footer\) footer\.innerHTML = `[^`]*`;/, () => '
 clientJs = clientJs.replace('window.scrollTo(0,0);', 'seoUpdate(hash); window.scrollTo(0,0);');
 clientJs = `
 const SEO_MAP = ${JSON.stringify(seoMap)};
-function seoUpdate(h){ const m = SEO_MAP[h] || SEO_MAP['']; document.title = m.t; const set = (sel, attr, v) => { const el = document.querySelector(sel); if(el) el.setAttribute(attr, v); }; set('meta[name=description]', 'content', m.d); set('meta[property="og:title"]', 'content', m.t); set('meta[property="og:description"]', 'content', m.d); set('meta[name="twitter:title"]', 'content', m.t); set('meta[name="twitter:description"]', 'content', m.d); const u = '${SITE}/' + (h || ''); set('link[rel=canonical]', 'href', u); set('meta[property="og:url"]', 'content', u); }
+function seoUpdate(h){ const m = SEO_MAP[h] || SEO_MAP['']; document.title = m.t; const set = (sel, attr, v) => { const el = document.querySelector(sel); if(el) el.setAttribute(attr, v); }; set('meta[name=description]', 'content', m.d); set('meta[property="og:title"]', 'content', m.t); set('meta[property="og:description"]', 'content', m.d); set('meta[name="twitter:title"]', 'content', m.t); set('meta[name="twitter:description"]', 'content', m.d); const u = '${SITE}/' + (h || ''); set('link[rel=canonical]', 'href', u); set('meta[property="og:url"]', 'content', u); set('meta[name="twitter:url"]', 'content', u); }
 ` + clientJs;
 if (!clientJs.includes('seoUpdate(hash)')) throw new Error('seoUpdate patch failed');
 write(path.join(OUT, 'assets/js/content.js'), clientJs);
@@ -103,6 +123,8 @@ write(path.join(OUT, 'assets/js/content.js'), clientJs);
 const shell = read(path.join(SRC, 'index.html'))
   .replace(/\.\.\/\.\.\/assets\//g, '/assets/')
   .replace(/<div class="review-bar">[^\n]*\n/, '')
+  .replace(/<meta name="(?:description|robots|twitter:[^"]+)"[^>]*>\s*/g, '')
+  .replace(/<meta property="og:[^"]+"[^>]*>\s*/g, '')
   .replace('href="styles.css?v=service-heading-v3"', `href="/styles.css?v=${BUILD}"`)
   .replace('src="presentation.js?v=mobile-nav"', `src="/presentation.js?v=${BUILD}"`)
   .replace(/(assets\/(?:js|css)\/[\w.-]+\.(?:js|css))/g, `$1?v=${Date.now()}`)
@@ -117,14 +139,13 @@ for (const p of pages) {
 <meta name="description" content="${esc(p.desc)}">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#3159eb">
-<meta name="author" content="AL MANTIQ"><meta name="application-name" content="AL MANTIQ"><meta name="format-detection" content="telephone=no">
-<meta name="keywords" content="AL MANTIQ, AI products, custom ERP development, software development, mobile app development, Salesforce development, AR VR XR development, QA testing, offshore team, ILMA CMS, Pakistan Education AI">
+<meta name="author" content="AL MANTIQ"><meta name="application-name" content="AL MANTIQ"><meta name="format-detection" content="telephone=no"><meta name="color-scheme" content="dark light">
 <link rel="manifest" href="/site.webmanifest"><link rel="alternate" hreflang="en" href="${abs}"><link rel="alternate" hreflang="x-default" href="${abs}">
 <link rel="canonical" href="${abs}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="AL MANTIQ">
 <meta property="og:title" content="${esc(p.title)}"><meta property="og:description" content="${esc(p.desc)}">
 <meta property="og:url" content="${abs}"><meta property="og:image" content="${SITE}/assets/brand/og-image.jpg"><meta property="og:image:secure_url" content="${SITE}/assets/brand/og-image.jpg"><meta property="og:image:type" content="image/jpeg"><meta property="og:locale" content="en_US"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="AL MANTIQ logo">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(p.title)}"><meta name="twitter:description" content="${esc(p.desc)}"><meta name="twitter:image" content="${SITE}/assets/brand/og-image.jpg"><meta name="twitter:image:alt" content="AL MANTIQ logo">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:url" content="${abs}"><meta name="twitter:title" content="${esc(p.title)}"><meta name="twitter:description" content="${esc(p.desc)}"><meta name="twitter:image" content="${SITE}/assets/brand/og-image.jpg"><meta name="twitter:image:alt" content="AL MANTIQ — Intelligent Products and Digital Engineering">
 <script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@graph': p.ld })}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg"><link rel="apple-touch-icon" href="/assets/brand/mantiq-symbol.png">`;
   let html = shell.replace(/<title>.*?<\/title>/s, () => head)
@@ -134,6 +155,13 @@ for (const p of pages) {
   let i = 0;
   html = html.replace(/<a onclick="go\('[^']*'\)">/g, () => `<a href="${navHrefs[i++] ?? '/'}">`);
   html = withHrefs(html).replace('<body>', `<body data-page="${page}">`);
+  for (const [label, pattern] of [
+    ['title', /<title>/g], ['description', /<meta name="description"/g], ['canonical', /<link rel="canonical"/g],
+    ['og:title', /<meta property="og:title"/g], ['twitter:title', /<meta name="twitter:title"/g], ['json-ld', /<script type="application\/ld\+json"/g],
+  ]) {
+    const count = (html.match(pattern) || []).length;
+    if (count !== 1) throw new Error(`${p.url}: expected one ${label}, found ${count}`);
+  }
   write(path.join(OUT, p.url === '/' ? 'index.html' : path.join(p.url.slice(1), 'index.html')), html);
 }
 
