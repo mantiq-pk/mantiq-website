@@ -108,7 +108,7 @@
   }
 
   /* 2026 content architecture */
-  .hero-support,.body-copy,.service-card p,.product-feature p,.product-card p,.problem-grid p,.feature-card-grid p,.timeline p,.role-grid p,.value-grid p,.next-steps p,.contact-path>p,.calendar-placeholder p{color:var(--muted);}
+  .hero-support,.body-copy,.service-card p,.product-feature p,.product-card p,.problem-grid p,.feature-card-grid p,.timeline p,.role-grid p,.value-grid p,.next-steps p,.contact-path>p{color:var(--muted);}
   .hero-support{font-size:15px;max-width:680px;margin-top:12px;}
   .body-copy{font-size:14px;margin-top:18px;max-width:610px;}
   .section-tint{background:var(--panel);border-block:1px solid var(--line);}
@@ -169,9 +169,10 @@
   .contact-path{min-width:0;}
   .contact-path+ .contact-path{border-left:1px solid var(--line);padding-left:50px;}
   .contact-path h2{margin:14px 0 10px;}
-  .calendar-placeholder{margin-top:28px;padding:28px;border:1px solid var(--line);border-radius:12px;background:var(--panel);min-height:390px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;}
-  .calendar-placeholder span{color:var(--blue);font-size:12px;font-weight:700;}
-  .calendar-placeholder strong{font-size:22px;margin:12px 0;}
+  .calendar-embed{width:100%;height:720px;overflow:hidden;margin-top:28px;border:1px solid var(--line);border-radius:12px;background:var(--panel);}
+  .calendar-embed iframe{display:block;width:100%;height:100%;border:0;}
+  .calendar-fallback{margin-top:10px!important;font-size:12px!important;}
+  .calendar-fallback a{color:var(--blue);font-weight:700;}
   .contact-path form{margin-top:28px;}
   .contact-path label span{font-weight:400;}
   .form-status{font-size:12px;color:var(--good);min-height:1.4em;}
@@ -201,7 +202,7 @@
     .process-grid>div,.next-steps>div,.timeline>div{border-left:0;border-top:1px solid var(--line);padding:20px 0;}
     .process-grid>div:first-child,.next-steps>div:first-child,.timeline>div:first-child{border-top:0;}
     .contact-path+.contact-path{border-left:0;border-top:1px solid var(--line);padding:35px 0 0;}
-    .calendar-placeholder{min-height:300px;}
+    .calendar-embed{height:680px;}
     .team-configurator{padding:24px;}
     .footer-inner{grid-template-columns:1fr;}
     .footer-bottom{flex-direction:column;}
