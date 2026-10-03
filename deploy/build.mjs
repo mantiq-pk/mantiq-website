@@ -6,6 +6,7 @@ import vm from 'node:vm';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const OUT = path.join(ROOT, '.deploy');
+const BUILD = Date.now();
 const SITE = 'https://almantiqhub.com';
 const SRC = path.join(ROOT, 'designs/modern-plain');
 const read = f => fs.readFileSync(f, 'utf8');
@@ -49,6 +50,8 @@ pres = pres.replace("window.addEventListener('hashchange',enhancePresentation);"
 pres += "\nconst _go=window.go;window.go=function(p){_go(p);enhancePresentation();};\n";
 write(path.join(OUT, 'presentation.js'), pres);
 
+// ---- footer: single source of truth for prerender + runtime ----
+const FOOTER_HTML = `<div class="ft"><a class="ft-logo" href="/" aria-label="AL MANTIQ home"><span class="brand-symbol" aria-hidden="true"></span><span>AL MANTIQ</span></a><p class="ft-tag">Intelligent Products. Digital Engineering.</p><nav class="ft-cols" aria-label="Footer"><div><strong>Products</strong><a href="/product/ilma-cms">ILMA CMS</a><a href="/product/pakistan-education-ai">Pakistan Education AI</a></div><div><strong>Services</strong><a href="/services">Software Development</a><a href="/services">Mobile App Development</a><a href="/services">QA &amp; Testing</a></div><div><strong>Company</strong><a href="/contact">Contact</a><a href="/contact">Start a Project</a></div></nav><div class="ft-bottom"><span>&copy; 2026 AL MANTIQ. All rights reserved.</span></div></div>`;
 // ---- prerender every route by running the real render functions ----
 const footerBox = { innerHTML: '' };
 const stubEl = { addEventListener() {}, append() {}, querySelector: () => null, classList: { add() {}, remove() {} }, innerHTML: '' };
@@ -65,7 +68,7 @@ const bodyOnly = content.slice(0, content.indexOf('enhanceGlobalChrome();\nwindo
 vm.runInContext(bodyOnly + '\n;vm_api={SERVICES,PRODUCTS,renderHome,renderProducts,renderServices,renderContact,renderProductDetail,enhanceGlobalChrome};', ctx);
 const api = ctx.vm_api;
 api.enhanceGlobalChrome();
-const footer = footerBox.innerHTML;
+const footer = FOOTER_HTML;
 const withHrefs = html => html.replace(/<a([^>]*?)onclick="go\('([^']*)'\)"([^>]*)>/g, (m, a, p, b) => `<a${a}href="/${p}"${b}>`);
 
 const ORG = { '@type': 'Organization', '@id': SITE + '/#org', name: 'AL MANTIQ', url: SITE + '/', logo: SITE + '/assets/brand/mantiq-symbol.png', description: 'AL MANTIQ is a product-driven technology company building AI-powered software and digital products.' };
@@ -86,7 +89,9 @@ const pages = [
 
 // client-side navigation keeps title/description/canonical in sync with the prerendered pages
 const seoMap = Object.fromEntries(pages.map(p => [p.url.replace(/^\//, ''), { t: p.title, d: p.desc }]));
+
 let clientJs = content.replace(/document\.title = [^;]*;/g, '');
+clientJs = clientJs.replace(/if\(footer\) footer\.innerHTML = `[^`]*`;/, () => 'if(footer) footer.innerHTML = `' + FOOTER_HTML + '`;');
 clientJs = clientJs.replace('window.scrollTo(0,0);', 'seoUpdate(hash); window.scrollTo(0,0);');
 clientJs = `
 const SEO_MAP = ${JSON.stringify(seoMap)};
@@ -98,8 +103,8 @@ write(path.join(OUT, 'assets/js/content.js'), clientJs);
 const shell = read(path.join(SRC, 'index.html'))
   .replace(/\.\.\/\.\.\/assets\//g, '/assets/')
   .replace(/<div class="review-bar">[^\n]*\n/, '')
-  .replace('href="styles.css?v=service-heading-v3"', 'href="/styles.css?v=seo1"')
-  .replace('src="presentation.js?v=mobile-nav"', 'src="/presentation.js?v=seo1"')
+  .replace('href="styles.css?v=service-heading-v3"', `href="/styles.css?v=${BUILD}"`)
+  .replace('src="presentation.js?v=mobile-nav"', `src="/presentation.js?v=${BUILD}"`)
   .replace(/(assets\/(?:js|css)\/[\w.-]+\.(?:js|css))/g, `$1?v=${Date.now()}`)
   .replace(/href="#" onclick/g, 'onclick')
   .replace(/<link rel="icon"[^>]*>\n?/, '');
