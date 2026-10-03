@@ -24,7 +24,7 @@ fs.copyFileSync(path.join(SRC, 'styles.css'), path.join(OUT, 'styles.css'));
 // ---- typography: small text was too small on laptop and mobile; bump px font sizes ----
 const bump = n => (n <= 12 ? n + 2 : n <= 18 ? Math.round((n + 1.5) * 2) / 2 : n);
 const bumpCss = css => css.replace(/font-size:\s*([\d.]+)px/g, (m, n) => `font-size:${bump(parseFloat(n))}px`);
-for (const f of ['styles.css']) write(path.join(OUT, f), bumpCss(read(path.join(OUT, f))));
+for (const f of ['styles.css']) write(path.join(OUT, f), bumpCss(read(path.join(OUT, f))) + '\n' + read(path.join(ROOT, 'deploy/overrides.css')));
 for (const f of fs.readdirSync(path.join(OUT, 'assets/css'))) write(path.join(OUT, 'assets/css', f), bumpCss(read(path.join(OUT, 'assets/css', f))));
 
 // ---- patch runtime scripts: hash routing -> real paths (History API) ----
@@ -112,11 +112,14 @@ for (const p of pages) {
 <meta name="description" content="${esc(p.desc)}">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="theme-color" content="#3159eb">
+<meta name="author" content="AL MANTIQ"><meta name="application-name" content="AL MANTIQ"><meta name="format-detection" content="telephone=no">
+<meta name="keywords" content="AL MANTIQ, AI products, custom ERP development, software development, mobile app development, Salesforce development, AR VR XR development, QA testing, offshore team, ILMA CMS, Pakistan Education AI">
+<link rel="manifest" href="/site.webmanifest"><link rel="alternate" hreflang="en" href="${abs}"><link rel="alternate" hreflang="x-default" href="${abs}">
 <link rel="canonical" href="${abs}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="AL MANTIQ">
 <meta property="og:title" content="${esc(p.title)}"><meta property="og:description" content="${esc(p.desc)}">
-<meta property="og:url" content="${abs}"><meta property="og:image" content="${SITE}/assets/brand/al-mantiq-lockup.png"><meta property="og:locale" content="en_US">
-<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(p.title)}"><meta name="twitter:description" content="${esc(p.desc)}"><meta name="twitter:image" content="${SITE}/assets/brand/al-mantiq-lockup.png">
+<meta property="og:url" content="${abs}"><meta property="og:image" content="${SITE}/assets/brand/og-image.jpg"><meta property="og:image:secure_url" content="${SITE}/assets/brand/og-image.jpg"><meta property="og:image:type" content="image/jpeg"><meta property="og:locale" content="en_US"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="AL MANTIQ logo">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${esc(p.title)}"><meta name="twitter:description" content="${esc(p.desc)}"><meta name="twitter:image" content="${SITE}/assets/brand/og-image.jpg"><meta name="twitter:image:alt" content="AL MANTIQ logo">
 <script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@graph': p.ld })}</script>
 <link rel="icon" type="image/svg+xml" href="/assets/brand/favicon.svg"><link rel="apple-touch-icon" href="/assets/brand/mantiq-symbol.png">`;
   let html = shell.replace(/<title>.*?<\/title>/s, () => head)
@@ -129,6 +132,7 @@ for (const p of pages) {
   write(path.join(OUT, p.url === '/' ? 'index.html' : path.join(p.url.slice(1), 'index.html')), html);
 }
 
+write(path.join(OUT, 'site.webmanifest'), JSON.stringify({ name: 'AL MANTIQ', short_name: 'AL MANTIQ', start_url: '/', display: 'standalone', background_color: '#060b15', theme_color: '#3159eb', icons: [{ src: '/assets/brand/mantiq-symbol.png', sizes: '1254x1254', type: 'image/png' }] }, null, 2));
 write(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
 const today = new Date().toISOString().slice(0, 10);
 write(path.join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map(p => `  <url><loc>${SITE}${p.url}</loc><lastmod>${today}</lastmod><priority>${p.url === '/' ? '1.0' : p.url.startsWith('/product/') ? '0.8' : '0.7'}</priority></url>`).join('\n')}\n</urlset>\n`);

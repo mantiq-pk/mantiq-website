@@ -1,0 +1,18 @@
+/* UI fixes applied on top of the design CSS (appended by deploy/build.mjs) */
+.site-footer{display:block;width:min(1190px,calc(100% - 48px));text-align:left;padding-block:48px 32px}
+.site-footer .footer-inner{padding:0;max-width:none;grid-template-columns:1.6fr 1fr 1fr 1fr;align-items:start}
+.site-footer .footer-inner a{line-height:1.5}
+.site-footer .footer-bottom{padding:20px 0 0;max-width:none;align-items:center;flex-wrap:wrap}
+.site-footer .footer-bottom span:last-child{text-align:right}
+#app>section:first-child{min-height:0!important}
+body[data-page=home] #app>section:first-child{min-height:63vh!important}
+.page-hero,.product-hero{padding-bottom:56px}
+@media(max-width:900px){.site-footer .footer-inner{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){
+  .site-footer{width:calc(100% - 44px);padding-block:36px 24px}
+  .site-footer .footer-inner{grid-template-columns:1fr 1fr;gap:28px 20px}
+  .site-footer .footer-inner>div:first-child{grid-column:1/-1}
+  .site-footer .footer-bottom{flex-direction:column;align-items:flex-start;gap:8px}
+  .site-footer .footer-bottom span:last-child{text-align:left}
+  .site-footer p{max-width:none}
+}
