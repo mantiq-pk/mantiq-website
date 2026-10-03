@@ -16,3 +16,53 @@ body[data-page=home] #app>section:first-child{min-height:63vh!important}
   .site-footer .footer-bottom span:last-child{text-align:left}
   .site-footer p{max-width:none}
 }
+
+/* ---- alignment / balance fixes (higher specificity so they beat brand.css + theme.css) ---- */
+body .hero-support{margin-inline:auto;max-width:680px;text-align:center}
+body[data-page=home] #app>section:first-child .lead{margin-inline:auto}
+body .cta.ghost:first-child,body .button-row .cta:first-child{margin-left:0}
+body .cta{margin-top:24px}
+body .cta.ghost{margin-left:12px}
+body .text-link{display:inline-block}
+/* services: 7 cards -> last row centered instead of a hole */
+body .service-grid{display:flex!important;flex-wrap:wrap;justify-content:center;gap:16px}
+body .service-grid>.service-card,body .service-grid>article{flex:0 0 calc(25% - 12px);max-width:calc(25% - 12px)}
+@media(max-width:1100px){body .service-grid>.service-card,body .service-grid>article{flex-basis:calc(50% - 8px);max-width:calc(50% - 8px)}}
+@media(max-width:640px){body .service-grid>.service-card,body .service-grid>article{flex-basis:100%;max-width:100%}}
+/* section intro paragraphs: one consistent size/measure */
+body #app section p.lead,body #app section .wrap>p{max-width:640px;line-height:1.75}
+body #app>section:nth-child(2)>.wrap>div p,body #app>section:nth-child(2)>.wrap>p{max-width:520px;font-size:inherit;line-height:1.75;margin-top:0}
+body #app>section:nth-child(2)>.wrap>div p+p{margin-top:16px}
+/* team chips align with heading block */
+body .team-callout{align-items:center}
+/* footer: beat brand.css (flex + right aligned) */
+body footer.site-footer{display:block!important;width:min(1120px,calc(100% - 70px))!important;margin-inline:auto!important;text-align:left!important;padding:56px 0 32px!important}
+body footer.site-footer .footer-inner{display:grid!important;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;max-width:none!important;padding:0!important;text-align:left!important}
+body footer.site-footer .footer-inner>div{display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+body footer.site-footer .footer-inner a{font-size:14.5px;text-align:left;white-space:normal;line-height:1.5}
+body footer.site-footer .footer-inner p{margin:6px 0 0;max-width:260px;font-size:14.5px;line-height:1.6;text-align:left}
+body footer.site-footer .footer-bottom{display:flex!important;justify-content:space-between;align-items:center;gap:12px 24px;flex-wrap:wrap;max-width:none!important;margin:36px 0 0!important;padding:22px 0 0!important;font-size:13.5px;text-align:left}
+body footer.site-footer .footer-bottom span:last-child{text-align:right}
+@media(max-width:900px){body footer.site-footer .footer-inner{grid-template-columns:1fr 1fr;gap:32px 24px}body footer.site-footer .footer-inner>div:first-child{grid-column:1/-1}}
+@media(max-width:600px){body footer.site-footer{width:calc(100% - 44px)!important;padding:40px 0 28px!important}body footer.site-footer .footer-bottom{flex-direction:column;align-items:flex-start}body footer.site-footer .footer-bottom span:last-child{text-align:left}}
+body #app>section:nth-child(2) p{font-size:17px!important;line-height:1.75!important;color:var(--muted)}
+body .service-grid+.cta,body .service-grid+a.cta{display:table;margin:36px auto 0}
+body .home-service-grid+a{display:table;margin:36px auto 0}
+
+/* ---- product pages / pricing ---- */
+body h1,body h2,body h3{text-wrap:balance}
+body .section-statement{margin-top:40px}
+body .plans-grid{align-items:stretch}
+body .plan{position:relative;display:flex;flex-direction:column}
+body .plan .popular-badge{position:absolute;top:-13px;left:26px;margin:0}
+body .plan .pnote{min-height:3em}
+body .plan ul{flex:1}
+body .plan .text-link{margin-top:auto;padding-top:22px}
+body .pricing-note{margin-top:36px}
+@media(max-width:760px){body .plan .pnote{min-height:0}body .section-statement{margin-top:28px}}
+
+/* final CTA: fully centered */
+body .final-cta .wrap{text-align:center}
+body .final-cta h2,body .final-cta .lead{margin-inline:auto;text-align:center;max-width:720px}
+body .final-cta .cta{margin-inline:6px}
+body .final-cta .cta.ghost{margin-left:6px}
