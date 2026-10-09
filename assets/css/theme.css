@@ -43,8 +43,6 @@ html[data-theme='light'] {
 
 .theme-ready body,
 .theme-ready nav,
-.theme-ready .review-nav,
-.theme-ready .review-bar,
 .theme-ready .card,
 .theme-ready .tcard,
 .theme-ready .prow,
@@ -82,8 +80,6 @@ html[data-theme='light'] {
 @media (prefers-reduced-motion: reduce) {
   .theme-ready body,
   .theme-ready nav,
-  .theme-ready .review-nav,
-  .theme-ready .review-bar,
   .theme-ready .card,
   .theme-ready .tcard,
   .theme-ready .prow,

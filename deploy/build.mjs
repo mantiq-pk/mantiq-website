@@ -8,7 +8,7 @@ const ROOT = path.resolve(import.meta.dirname, '..');
 const OUT = path.join(ROOT, '.deploy');
 const BUILD = Date.now();
 const SITE = 'https://almantiqhub.com';
-const SRC = path.join(ROOT, 'designs/modern-plain');
+const SRC = ROOT;
 const read = f => fs.readFileSync(f, 'utf8');
 const write = (f, s) => { fs.mkdirSync(path.dirname(f), { recursive: true }); fs.writeFileSync(f, s); };
 const esc = s => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
@@ -121,8 +121,6 @@ if (!clientJs.includes('seoUpdate(hash)')) throw new Error('seoUpdate patch fail
 write(path.join(OUT, 'assets/js/content.js'), clientJs);
 
 const shell = read(path.join(SRC, 'index.html'))
-  .replace(/\.\.\/\.\.\/assets\//g, '/assets/')
-  .replace(/<div class="review-bar">[^\n]*\n/, '')
   .replace(/<meta name="(?:description|robots|twitter:[^"]+)"[^>]*>\s*/g, '')
   .replace(/<meta property="og:[^"]+"[^>]*>\s*/g, '')
   .replace('href="styles.css?v=service-heading-v3"', `href="/styles.css?v=${BUILD}"`)
@@ -130,7 +128,6 @@ const shell = read(path.join(SRC, 'index.html'))
   .replace(/(assets\/(?:js|css)\/[\w.-]+\.(?:js|css))/g, `$1?v=${Date.now()}`)
   .replace(/href="#" onclick/g, 'onclick')
   .replace(/<link rel="icon"[^>]*>\n?/, '');
-if (shell.includes('review-bar')) throw new Error('review bar not removed');
 
 const navHrefs = ['/', '/products', '/services', '/contact'];
 for (const p of pages) {
