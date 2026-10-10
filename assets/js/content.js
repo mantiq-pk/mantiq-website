@@ -83,7 +83,7 @@ function renderHome(){
 }
 
 function renderProducts(){
-  return `<section class="page-hero"><div class="wrap"><div class="eyebrow">PRODUCTS</div><h1>Intelligent Products Built by AL MANTIQ.</h1><p class="lead">Two focused products, each built around a real market and a clear operational problem.</p><div class="product-grid">${PRODUCTS.map((product,index)=>`<article class="product-card"><div class="product-index">0${index+1} / ${product.category}</div><h2>${product.name}</h2><h3>${product.headline}</h3><p>${product.blurb}</p><a class="cta" onclick="go('product/${product.slug}')">View Product →</a></article>`).join('')}</div></div></section>`;
+  return `<section class="page-hero"><div class="wrap"><div class="eyebrow">PRODUCTS</div><h1>Intelligent Products Built by AL MANTIQ.</h1><p class="lead">Two focused products, each built around a real market and a clear operational problem.</p><div class="product-grid">${PRODUCTS.map((product,index)=>`<article class="product-card"><div class="product-index">0${index+1} / ${product.category}</div><h2>${product.name}</h2><h3>${product.headline}</h3><p>${product.blurb}</p>${product.slug === 'ilma-cms' ? `<a class="cta" href="${ILMA_ONBOARDING_URL}">Start Free Trial →</a><a class="cta ghost" onclick="go('product/${product.slug}')">View Product →</a>` : `<a class="cta" onclick="go('product/${product.slug}')">View Product →</a>`}</article>`).join('')}</div></div></section>`;
 }
 
 function renderProductDetail(slug){
