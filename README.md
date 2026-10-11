@@ -46,4 +46,5 @@ The generated `.deploy/` directory is intentionally ignored and should not be co
 
 The production contact form sends messages through Resend to `contact@almantiqhub.com`.
 Set `RESEND_API_KEY` in the Vercel project, and verify `almantiqhub.com` in Resend so the
-default sender address (`website@almantiqhub.com`) is authorized.
+default sender address (`website@almantiqhub.com`) is authorized. Until the server-side
+email service is configured, the form safely falls back to a prefilled email draft.
