@@ -12,6 +12,7 @@ assets/                    Shared content, theme, styles, and brand assets
 deploy/build.mjs           Production prerenderer
 deploy/check-seo.mjs       SEO verification for every public route
 deploy/overrides.css       Production-only CSS adjustments
+api/contact.mjs            Server-side contact form email handler
 ```
 
 The source site uses hash routing for a dependency-free local preview. The production builder prerenders the same content to real, SEO-friendly paths in `.deploy/`.
@@ -40,3 +41,9 @@ The generated `.deploy/` directory is intentionally ignored and should not be co
 - Update the finalized visual treatment in `styles.css`.
 - Keep reusable brand and theme rules in `assets/css/`.
 - Rebuild and run the SEO check before deployment.
+
+## Contact form email
+
+The production contact form sends messages through Resend to `contact@almantiqhub.com`.
+Set `RESEND_API_KEY` in the Vercel project, and verify `almantiqhub.com` in Resend so the
+default sender address (`website@almantiqhub.com`) is authorized.

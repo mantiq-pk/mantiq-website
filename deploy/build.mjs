@@ -21,6 +21,7 @@ for (const f of fs.readdirSync(OUT)) fs.rmSync(path.join(OUT, f), { recursive: t
 if (savedLink) write(path.join(link, 'project.json'), savedLink);
 fs.cpSync(path.join(ROOT, 'assets'), path.join(OUT, 'assets'), { recursive: true });
 fs.copyFileSync(path.join(SRC, 'styles.css'), path.join(OUT, 'styles.css'));
+fs.cpSync(path.join(ROOT, 'api'), path.join(OUT, 'api'), { recursive: true });
 
 // ---- typography: small text was too small on laptop and mobile; bump px font sizes ----
 const bump = n => (n <= 12 ? n + 2 : n <= 18 ? Math.round((n + 1.5) * 2) / 2 : n);
@@ -74,9 +75,9 @@ const withHrefs = html => html.replace(/<a([^>]*?)onclick="go\('([^']*)'\)"([^>]
 const ORG = {
   '@type': 'Organization', '@id': SITE + '/#org', name: 'AL MANTIQ', alternateName: 'Mantiq', url: SITE + '/',
   logo: { '@type': 'ImageObject', url: SITE + '/assets/brand/mantiq-symbol.png', width: 1254, height: 1254 },
-  image: SITE + '/assets/brand/og-image.jpg', email: 'hello@mantiq.io',
+  image: SITE + '/assets/brand/og-image.jpg', email: 'contact@almantiqhub.com',
   description: 'AL MANTIQ is a product-driven technology company building AI-powered software and digital products.',
-  contactPoint: { '@type': 'ContactPoint', contactType: 'sales', email: 'hello@mantiq.io', availableLanguage: ['English'] },
+  contactPoint: { '@type': 'ContactPoint', contactType: 'sales', email: 'contact@almantiqhub.com', availableLanguage: ['English'] },
 };
 const WEBSITE = { '@type': 'WebSite', '@id': SITE + '/#site', url: SITE + '/', name: 'AL MANTIQ', alternateName: 'Mantiq', inLanguage: 'en', publisher: { '@id': SITE + '/#org' } };
 const crumbs = items => ({ '@type': 'BreadcrumbList', '@id': SITE + items.at(-1)[1] + '#breadcrumb', itemListElement: items.map(([name, url], i) => ({ '@type': 'ListItem', position: i + 1, name, item: SITE + url })) });
