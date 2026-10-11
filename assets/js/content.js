@@ -125,6 +125,8 @@ function wireContact(){
     const data = new FormData(form);
     const status = document.getElementById('form-status');
     const button = form.querySelector('button[type="submit"]');
+    const subject = encodeURIComponent(`Project inquiry — ${data.get('service')}`);
+    const body = encodeURIComponent(`${data.get('message')}\n\nName: ${data.get('name')}\nEmail: ${data.get('email')}\nCompany: ${data.get('company') || '—'}\nLooking for: ${data.get('service')}`);
     button.disabled = true;
     status.textContent = 'Sending your message…';
     try {
@@ -137,7 +139,8 @@ function wireContact(){
       form.reset();
       status.textContent = "Thanks — your message has been sent. We'll reply within one business day.";
     } catch(error) {
-      status.innerHTML = 'Sorry, the message could not be sent. Please email <a href="mailto:contact@almantiqhub.com">contact@almantiqhub.com</a>.';
+      status.textContent = "The secure email service is unavailable, so we're opening a prefilled email instead.";
+      window.location.href = `mailto:contact@almantiqhub.com?subject=${subject}&body=${body}`;
     } finally {
       button.disabled = false;
     }
