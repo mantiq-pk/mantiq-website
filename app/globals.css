@@ -1,0 +1,14 @@
+@import "../public/assets/css/base.css";
+@import "../styles.css";
+@import "../public/assets/css/brand.css";
+@import "../public/assets/css/theme.css";
+@import "../deploy/overrides.css";
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.form-status {
+  min-height: 1.5em;
+}

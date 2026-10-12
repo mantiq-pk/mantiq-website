@@ -1,50 +1,39 @@
 # AL MANTIQ website
 
-Production source for [almantiqhub.com](https://almantiqhub.com), including the company website, services, contact journey, ILMA CMS, and Pakistan Education AI product pages.
+The production website for [almantiqhub.com](https://almantiqhub.com), built with Next.js App Router. It includes the company website, services and contact journey, ILMA CMS, and Pakistan Education AI product pages.
+
+## Local development
+
+```sh
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+## Checks
+
+```sh
+npm run check
+npm run build
+npm start
+CHECK_HOST=http://127.0.0.1:3000 npm run test:seo
+```
+
+Next.js server-renders every public route, generates the sitemap, robots file and web manifest, and exposes the contact form through a route handler.
 
 ## Structure
 
 ```text
-index.html                 Final website shell used for local source previews
-styles.css                 Final visual design
-presentation.js            Presentation and accessibility enhancements
-assets/                    Shared content, theme, styles, and brand assets
-deploy/build.mjs           Production prerenderer
-deploy/check-seo.mjs       SEO verification for every public route
-deploy/overrides.css       Production-only CSS adjustments
-api/contact.mjs            Server-side contact form email handler
+app/                         App Router pages, metadata and API routes
+components/site-chrome.tsx   Navigation, theme and browser interactions
+lib/site.ts                  Route content, metadata and content adapter
+public/assets/               Shared content and brand assets
+styles.css                   Final visual design
+deploy/check-seo.mjs         Live SEO verification for every public route
 ```
-
-The source site uses hash routing for a dependency-free local preview. The production builder prerenders the same content to real, SEO-friendly paths in `.deploy/`.
-
-## Local source preview
-
-```sh
-python3 -m http.server 4173 --bind 127.0.0.1
-```
-
-Open [http://127.0.0.1:4173](http://127.0.0.1:4173).
-
-## Production build
-
-```sh
-node deploy/build.mjs
-python3 -m http.server 4175 --bind 127.0.0.1 --directory .deploy
-CHECK_HOST=http://127.0.0.1:4175 node deploy/check-seo.mjs
-```
-
-The generated `.deploy/` directory is intentionally ignored and should not be committed.
-
-## Maintenance
-
-- Update shared page content and product data in `assets/js/content.js`.
-- Update the finalized visual treatment in `styles.css`.
-- Keep reusable brand and theme rules in `assets/css/`.
-- Rebuild and run the SEO check before deployment.
 
 ## Contact form email
 
-The production contact form sends messages through Resend to `contact@almantiqhub.com`.
-Set `RESEND_API_KEY` in the Vercel project, and verify `almantiqhub.com` in Resend so the
-default sender address (`website@almantiqhub.com`) is authorized. Until the server-side
-email service is configured, the form safely falls back to a prefilled email draft.
+The contact form sends messages through Resend to `contact@almantiqhub.com`.
+Set `RESEND_API_KEY` in the deployment environment and verify `almantiqhub.com` in Resend so the default sender address (`website@almantiqhub.com`) is authorized. `CONTACT_FROM_EMAIL` can override the sender. If the email service is unavailable, the form falls back to a prefilled email draft.
