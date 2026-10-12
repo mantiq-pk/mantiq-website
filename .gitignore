@@ -6,6 +6,9 @@ Thumbs.db
 !.env.example
 node_modules/
 .next/
+.vercel/
 *.tsbuildinfo
 .deploy/
 .playwright-mcp/
+.vercel
+.env*
