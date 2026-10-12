@@ -10,5 +10,3 @@ node_modules/
 *.tsbuildinfo
 .deploy/
 .playwright-mcp/
-.vercel
-.env*
