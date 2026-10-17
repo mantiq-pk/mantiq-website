@@ -19,7 +19,8 @@ body[data-page=home] #app>section:first-child{min-height:63vh!important}
 
 /* ---- alignment / balance fixes (higher specificity so they beat brand.css + theme.css) ---- */
 body .hero-support{margin-inline:auto;max-width:680px;text-align:center}
-body[data-page=home] #app>section:first-child .lead{margin-inline:auto}
+body #app .hero-section>.wrap{text-align:center}
+body #app .hero-section .lead{margin-inline:auto;text-align:center}
 body .cta.ghost:first-child,body .button-row .cta:first-child{margin-left:0}
 body .cta{margin-top:24px}
 body .cta.ghost{margin-left:12px}
