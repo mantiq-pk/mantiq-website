@@ -6,6 +6,7 @@ Thumbs.db
 !.env.example
 node_modules/
 .next/
+out/
 .vercel/
 *.tsbuildinfo
 .deploy/

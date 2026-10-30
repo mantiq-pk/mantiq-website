@@ -6,6 +6,10 @@ import { useEffect, useState } from 'react';
 
 type Theme = 'dark' | 'light';
 
+const API_BASE_URL = (
+  process.env.NEXT_PUBLIC_API_BASE_URL || 'https://65-2-162-226.sslip.io/api/v1'
+).replace(/\/$/, '');
+
 function pageName(pathname: string) {
   if (pathname.startsWith('/product/')) return 'product';
   if (['/products', '/services', '/contact'].includes(pathname)) return pathname.slice(1);
@@ -65,7 +69,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
       button.disabled = true;
       status.textContent = 'Sending your message…';
       try {
-        const response = await fetch('/api/contact', {
+        const response = await fetch(`${API_BASE_URL}/onboarding/contact/`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(Object.fromEntries(data)),
