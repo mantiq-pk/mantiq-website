@@ -59,8 +59,8 @@ const PRODUCTS = [
   },
 ];
 
-const ILMA_ONBOARDING_URL = 'https://ilma.almantiqhub.com/onboarding?source=almantiq';
-const ILMA_DEMO_URL = 'https://ilma-demo.almantiqhub.com';
+const ILMA_ONBOARDING_URL = 'https://ilma.live/onboarding?source=almantiq';
+const ILMA_DEMO_URL = 'https://demo.ilma.live';
 
 function productBySlug(slug){ return PRODUCTS.find(product => product.slug === slug); }
 function productName(slug){ return productBySlug(slug)?.name || ''; }
