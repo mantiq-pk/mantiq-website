@@ -130,6 +130,16 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
         <div className="ft">
           <Link className="ft-logo" href="/" aria-label="AL MANTIQ home"><span className="brand-symbol" aria-hidden="true" /><span>AL MANTIQ</span></Link>
           <p className="ft-tag">Intelligent Products. Digital Engineering.</p>
+          <section className="ft-partner" aria-labelledby="ft-partner-title">
+            <span className="ft-partner-mark" aria-hidden="true">AM</span>
+            <div className="ft-partner-copy">
+              <h2 id="ft-partner-title">Partner with AL MANTIQ</h2>
+              <p>Introduce the right organizations to our products and grow with every successful referral.</p>
+            </div>
+            <Link className="ft-partner-action" href="https://partners.almantiqhub.com">
+              Explore the partner program <span aria-hidden="true">↗</span>
+            </Link>
+          </section>
           <nav className="ft-cols" aria-label="Footer">
             <div><strong>Products</strong><Link href="/product/ilma-cms">ILMA CMS</Link><Link href="/product/pakistan-education-ai">Pakistan Education AI</Link></div>
             <div><strong>Services</strong><Link href="/services">Software Development</Link><Link href="/services">Mobile App Development</Link><Link href="/services">QA &amp; Testing</Link></div>
