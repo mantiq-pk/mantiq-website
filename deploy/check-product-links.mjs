@@ -3,9 +3,9 @@ import fs from 'node:fs';
 
 const source = fs.readFileSync(new URL('../public/assets/js/content.js', import.meta.url), 'utf8');
 const retiredHosts = [
-  'ilma.almantiqhub.com',
-  'ilma-demo.almantiqhub.com',
-  'ilma-website.pages.dev',
+  ['ilma', 'almantiqhub.com'].join('.'),
+  ['ilma-demo', 'almantiqhub.com'].join('.'),
+  ['ilma-website', 'pages.dev'].join('.'),
 ];
 
 for (const host of retiredHosts) {
