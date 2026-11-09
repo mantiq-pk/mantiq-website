@@ -133,7 +133,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
           <nav className="ft-cols" aria-label="Footer">
             <div><strong>Products</strong><Link href="/product/ilma-cms">ILMA CMS</Link><Link href="/product/pakistan-education-ai">Pakistan Education AI</Link></div>
             <div><strong>Services</strong><Link href="/services">Software Development</Link><Link href="/services">Mobile App Development</Link><Link href="/services">QA &amp; Testing</Link></div>
-            <div><strong>Company</strong><Link href="/contact">Contact</Link><Link href="/contact">Start a Project</Link></div>
+            <div><strong>Company</strong><Link href="https://partners.almantiqhub.com">Partner Program</Link><Link href="/contact">Contact</Link><Link href="/contact">Start a Project</Link></div>
           </nav>
           <div className="ft-bottom"><span>© 2026 AL MANTIQ. All rights reserved.</span></div>
         </div>
