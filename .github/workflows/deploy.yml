@@ -1,0 +1,53 @@
+name: Deploy website
+
+# A merge to main builds the image tagged with the commit SHA and deploys it to the AWS server
+# (almantiqhub.com). The deploy key is restricted on the server to deploy/almantiq-deploy.sh
+# (forced command, no shell, no forwarding); that script validates the tag, loads the image,
+# updates only ALMANTIQ_TAG, recreates only the almantiq-website service and rolls back on failure.
+# No tests run here.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-aws:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    concurrency:
+      group: deploy-website-aws
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: |
+          echo "TAG=${GITHUB_SHA::12}" >> "$GITHUB_ENV"
+          docker build --pull -t "almantiq-website:${GITHUB_SHA::12}" .
+      - name: Deploy to AWS
+        env:
+          DEPLOY_TARGET: ${{ secrets.AWS_DEPLOY_TARGET }}
+          DEPLOY_KEY: ${{ secrets.AWS_DEPLOY_SSH_KEY }}
+          DEPLOY_KNOWN_HOSTS: ${{ secrets.AWS_DEPLOY_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          umask 077
+          key="$(mktemp)"; hosts="$(mktemp)"
+          trap 'rm -f "$key" "$hosts"' EXIT
+          printf '%s\n' "$DEPLOY_KEY" > "$key"
+          printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$hosts"
+          docker save "almantiq-website:${TAG}" | gzip -1 | ssh -i "$key" -o IdentitiesOnly=yes \
+            -o UserKnownHostsFile="$hosts" -o StrictHostKeyChecking=yes -o BatchMode=yes \
+            "$DEPLOY_TARGET" "$TAG"
+      - name: Check the public site
+        run: |
+          for u in https://almantiqhub.com/ https://www.almantiqhub.com/ https://almantiqhub.com/contact; do
+            curl --fail --silent --show-error --retry 5 --retry-delay 3 --output /dev/null "$u"
+          done
+      - name: Remove the local image
+        if: always()
+        run: docker image rm "almantiq-website:${TAG}" || true
