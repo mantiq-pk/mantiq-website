@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 type Theme = 'dark' | 'light';
 
 const API_BASE_URL = (
-  process.env.NEXT_PUBLIC_API_BASE_URL || 'https://65-2-162-226.sslip.io/api/v1'
+  process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.ilma.live/api/v1'
 ).replace(/\/$/, '');
 
 function pageName(pathname: string) {
